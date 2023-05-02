@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -195,8 +196,12 @@ public class PlayerMovementPhysics : MonoBehaviour
     }
     private void CheckIfGround()
     {
+        Debug.DrawLine(groundCheck.position, groundCheck.position + (Vector3.down * groundDistance), Color.red);
+
+        IsGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundLayer);
+
         //this checks if the player is standing on the ground
-        IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
+        //IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
 
         //so there is always a little velocity down on the player for when it falls
         if (IsGrounded && _velocity.y < 0)

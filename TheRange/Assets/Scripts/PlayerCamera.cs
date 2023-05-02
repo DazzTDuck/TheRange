@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -13,13 +8,13 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float _sensitivity = 3f;
     [SerializeField] private float _maxRotX = 45f;
     [SerializeField] private float _minRotX = -55;
-    [SerializeField] private float _walkingBobbingSpeed= 10f;
-    [SerializeField] private float _walkingBobbingAmountCam = 0.05f;
-    [SerializeField] private float _walkingBobbingAmountArms = 0.05f;
+    [SerializeField] private float _bobbingAmplitude = 1f;
+    [SerializeField] private float _bobbingPeriod = 0.1f;
+    [SerializeField] private float _bobbingAmplitudeJump = 1f;
+    [SerializeField] private float _bobbingPeriodJump = 0.1f;
 
     [Header("--Player reference--")]
     [SerializeField] private Transform _player;
-    [SerializeField] private Transform _arms;
     [SerializeField] private PlayerMovementPhysics _playerMovement;
 
     [HideInInspector]
@@ -27,24 +22,24 @@ public class PlayerCamera : MonoBehaviour
     [HideInInspector]
     public float rotCamY;
 
-    private float _defaultPosYCam = 0;
-    private float _defaultPosYArms = 0;
-    private float _timer = 0;
+
+    private Vector3 _startLocalPositionCam;
+    private float _timer;
 
     private void Awake()
     {
         HideCursor();
-        _defaultPosYCam = transform.localPosition.y;
-        _defaultPosYArms = _arms.localPosition.y;
+        _startLocalPositionCam = transform.localPosition;
     }
 
     private void Update()
     {
-        CameraPos();
+        CalculateRotationsAndPositions();
     }
 
-    void CameraPos()
+    private void CalculateRotationsAndPositions()
     {
+        //getting raw mouse input values
         rotCamY = Input.GetAxisRaw("Mouse X") * _sensitivity;
         rotCamX += Input.GetAxisRaw("Mouse Y") * _sensitivity;
 
@@ -59,30 +54,36 @@ public class PlayerCamera : MonoBehaviour
         //rotate player body
         _player.eulerAngles = bodyRotation;
 
-        //add camera bobbing
-        if(_playerMovement.GetRigidbody().velocity.magnitude > 0.3f)
+        HandleCameraBobbing();
+    }
+
+    private void HandleCameraBobbing()
+    {
+        //get the absolute velocity from the x and z axis
+        var absoluteVelocity = Mathf.Abs(_playerMovement.GetRigidbody().velocity.x + _playerMovement.GetRigidbody().velocity.z) / 2;
+
+        if (absoluteVelocity < 0.001) //to make sure there are no VERY low numbers
+            absoluteVelocity = 0;
+
+        //Camera bobbing up and down
+        if (_playerMovement.GetRigidbody().velocity.magnitude > 0.2f && _playerMovement.IsGrounded)
         {
-            //TODO - Make bobbing based on the player velocity
+            _timer += Time.deltaTime;
+            transform.localPosition = GetBobbing(_timer, _bobbingPeriod, _bobbingAmplitude, _startLocalPositionCam, absoluteVelocity);
 
-            _timer += Time.deltaTime * (_walkingBobbingSpeed * 1);
-            var newPositionCamera = new Vector3(transform.localPosition.x, _defaultPosYCam + Mathf.Sin(_timer) * _walkingBobbingAmountCam, transform.localPosition.z);
-            var newPositionArms = new Vector3(_arms.localPosition.x, _defaultPosYArms - Mathf.Sin(_timer) * _walkingBobbingAmountArms, _arms.localPosition.z);
-            
-            transform.localPosition = newPositionCamera;
-            _arms.localPosition = newPositionArms;
         }
-        else
+        else if (_playerMovement.GetRigidbody().velocity.magnitude < 0.2f && _playerMovement.IsGrounded)
         {
-            _timer = 0f;
-
-            var newPositionCamera = new Vector3(transform.localPosition.x, 
-                Mathf.Lerp(transform.localPosition.y, _defaultPosYCam, Time.deltaTime * _walkingBobbingSpeed), transform.localPosition.x);
-            transform.localPosition = newPositionCamera;
-
-            var newPositionArms = new Vector3(_arms.localPosition.x,
-                Mathf.Lerp(_arms.localPosition.y, _defaultPosYArms, Time.deltaTime * _walkingBobbingSpeed), _arms.localPosition.x);
-            _arms.localPosition = newPositionArms;
+            _timer = 0;
+            transform.localPosition = Vector3.Lerp(transform.localPosition, _startLocalPositionCam, Time.deltaTime * 1); //smoothly go back
         }
+    }
+
+    private Vector3 GetBobbing(float timer, float period, float amplitude,Vector3 localPosition, float absoluteVelocity = 1)
+    {
+        float theta = timer / (period);
+        float distance = (amplitude * absoluteVelocity) * Mathf.Sin(theta);
+        return localPosition + Vector3.up * distance;
     }
 
     public void HideCursor()
