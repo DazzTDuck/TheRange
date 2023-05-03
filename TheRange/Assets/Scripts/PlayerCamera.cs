@@ -10,8 +10,6 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float _minRotX = -55;
     [SerializeField] private float _bobbingAmplitude = 1f;
     [SerializeField] private float _bobbingPeriod = 0.1f;
-    [SerializeField] private float _bobbingAmplitudeJump = 1f;
-    [SerializeField] private float _bobbingPeriodJump = 0.1f;
 
     [Header("--Player reference--")]
     [SerializeField] private Transform _player;
