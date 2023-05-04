@@ -3,3 +3,5 @@ Arms & Pistol = https://sketchfab.com/3d-models/animated-pistol-bd896167e7ca44f1
 Shooting Target set = https://sketchfab.com/3d-models/shooting-target-set-ba8282fc05e044a187f556ef14c3ee26
 
 Modern Guns: Handgun (muzzle flash) = https://assetstore.unity.com/packages/3d/props/guns/modern-guns-handgun-129821#content
+
+Dummy = https://sketchfab.com/3d-models/crash-dummy-0c5cf6b017ba48f1bb32244ae1fefd2d

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc54668aa43c6614a9c2180b2040252e, type: 3}
+  m_Name: Beretta 92
+  m_EditorClassIdentifier: 
+  gunName: Beretta 92
+  ammoType: 1
+  magazineCapacity: 17
+  automatic: 0
+  fireDelay: 0.26
+  reloadDelay: 2
+  timeToResetAccuracy: 0.38
+  firstAccurateShots: 2
+  recoilMultiplier: 0
+  spreadAmount: 0

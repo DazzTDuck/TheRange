@@ -15,9 +15,10 @@ MonoBehaviour:
   gunName: Beretta M9
   ammoType: 0
   magazineCapacity: 15
-  fireDelay: 0.75
-  timeToResetAccuracy: 1.5
-  gunDamage: 0
+  automatic: 0
+  fireDelay: 0.2
+  reloadDelay: 2
+  timeToResetAccuracy: 0.3
   firstAccurateShots: 1
   recoilMultiplier: 0
   spreadAmount: 0

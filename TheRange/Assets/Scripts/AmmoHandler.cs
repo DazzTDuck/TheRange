@@ -5,10 +5,6 @@ public class AmmoHandler : MonoBehaviour
 {
     [SerializeField] private Ammo[] _allAmmoTypes;
 
-    private void Start()
-    {
-        Debug.Log(GetAmmo(AmmoTypes._9mm).maxAmmo);
-    }
 
     public Ammo GetAmmo(AmmoTypes ammoType)
     {
@@ -29,13 +25,17 @@ public struct Ammo
     public string name;
     [Space]
     public AmmoTypes ammoType;
+    [Space]
     public int maxAmmo;
-    public int ammoAvalable;
+    public int ammoInInventory;
+    [Space]
+    public int ammoDamage;
+    public float ammoRecoilPower;
 }
 
 public enum AmmoTypes
 {
-    _9mm,
-    _45acp
+    _9mm, //smaller bullet, faster, less recoil, less power, less damage
+    _45acp //bigger buller, slower, more recoil, more power, more damage
 
 }

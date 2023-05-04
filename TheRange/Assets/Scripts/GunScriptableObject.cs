@@ -9,9 +9,10 @@ public class GunScriptableObject : ScriptableObject
     [Space]
     public AmmoTypes ammoType;
     public int magazineCapacity;
+    public bool automatic;
     public float fireDelay;
+    public float reloadDelay;
     public float timeToResetAccuracy = 1.5f;
-    public int gunDamage;
     public int firstAccurateShots = 2;
     public float recoilMultiplier;
     public float spreadAmount;
