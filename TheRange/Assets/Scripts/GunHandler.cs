@@ -10,6 +10,7 @@ public class GunHandler : MonoBehaviour
     [SerializeField] private GunInfoHolder[] _allGuns;
     [Space]
     [SerializeField] private AmmoHandler _ammoHandler;
+    [SerializeField] private GameObject _bulletHoleDecal;
 
     private bool _isReloading = false;
     private bool _isFireing = false;
@@ -20,6 +21,9 @@ public class GunHandler : MonoBehaviour
 
     public EventHandler FireWeaponEvent;
     public EventHandler ReloadWeaponEvent;
+
+    private Ray ray;
+    private RaycastHit hit;
 
     private void Start()
     {
@@ -37,6 +41,9 @@ public class GunHandler : MonoBehaviour
 
     private void FireGun()
     {
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition); //set ray point (center of screen because mouse is locked)
+
+        //get fire input
         _wantsToFire = _equipedGun.data.automatic ? Input.GetButton("Fire1") : Input.GetButtonDown("Fire1");
 
         if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping)
@@ -44,7 +51,18 @@ public class GunHandler : MonoBehaviour
             _isFireing = true;
 
             //Shooting logic
+            if (Physics.Raycast(ray, out hit, _equipedGun.data.maxFireDistance))
+            {
+                if (hit.collider)
+                {
+                    //instantiate bullet hole on object hit
+                    Instantiate(_bulletHoleDecal, hit.point, Quaternion.LookRotation(-hit.normal));
 
+                    //find damageable object / hittable object and trigger hit function
+
+                    //take off the ammo
+                }
+            }  
 
             //start timer
             var fireTimer = gameObject.AddComponent<Timer>();
@@ -52,6 +70,10 @@ public class GunHandler : MonoBehaviour
 
             //activates fire weapon event
             FireWeaponEvent?.Invoke(this, EventArgs.Empty);
+
+
+            //if last bullet fires automaticly reload gun
+
         }
     }
 

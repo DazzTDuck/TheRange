@@ -10,6 +10,7 @@ public class GunScriptableObject : ScriptableObject
     public AmmoTypes ammoType;
     public int magazineCapacity;
     public bool automatic;
+    public float maxFireDistance;
     public float fireDelay;
     public float reloadDelay;
     public float timeToResetAccuracy = 1.5f;
