@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: Beretta M9
   ammoType: 0
-  magazineCapacity: 15
+  magazineCapacity: 17
   automatic: 0
-  maxFireDistance: 50
-  fireDelay: 0.2
+  maxFireDistance: 25
+  fireDelay: 0.15
   reloadDelay: 2
-  timeToResetAccuracy: 0.3
+  timeToResetAccuracy: 0.6
   firstAccurateShots: 1
-  recoilMultiplier: 0
-  spreadAmount: 0
+  spreadAmount: 7
+  recoilAmountXMin: 3.5
+  recoilAmountXMax: 4.2
+  recoilAmountYMin: -0.5
+  recoilAmountYMax: 0.5
+  recoilAmountZMin: -0.5
+  recoilAmountZMax: 0.5

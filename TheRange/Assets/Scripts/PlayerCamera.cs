@@ -20,9 +20,10 @@ public class PlayerCamera : MonoBehaviour
     [HideInInspector]
     public float rotCamY;
 
-
+    private Vector3 _recoilAmount;
     private Vector3 _startLocalPositionCam;
     private float _timer;
+    private float _recoilMultiplier;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class PlayerCamera : MonoBehaviour
         //calculate rotations
         var cameraRotation = new Vector3(-rotCamX, _player.eulerAngles.y, 0);
         var bodyRotation = new Vector3(0, _player.eulerAngles.y + rotCamY, 0);
-        transform.eulerAngles = cameraRotation;
+        transform.eulerAngles = cameraRotation + (_recoilAmount * _recoilMultiplier);
 
         //rotate player body
         _player.eulerAngles = bodyRotation;
@@ -94,6 +95,12 @@ public class PlayerCamera : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void AddToRecoil(Vector3 recoilAmount, float recoilMultiplier)
+    {
+        _recoilMultiplier = recoilMultiplier;
+        _recoilAmount = recoilAmount;
     }
 
 }

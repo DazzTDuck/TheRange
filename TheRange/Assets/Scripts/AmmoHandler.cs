@@ -1,10 +1,13 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class AmmoHandler : MonoBehaviour
 {
+    [SerializeField] private TMP_Text _ammoInClipText; 
+    [SerializeField] private TMP_Text _ammoInInventoryText;
+    [Space]
     [SerializeField] private Ammo[] _allAmmoTypes;
-
 
     public Ammo GetAmmo(AmmoTypes ammoType)
     {
@@ -14,13 +17,19 @@ public class AmmoHandler : MonoBehaviour
                 return _allAmmoTypes[i];
         }
 
-        Debug.LogWarning($"Ammo type Not found:{ammoType}, returning new Ammo()");
+        Debug.LogWarning($"Ammo type Not found:{ammoType}, returning new empty Ammo");
         return new Ammo();
+    }
+
+    public void EditAmmoText(int currentAmmoInClip, int currentAmmoInInventory)
+    {
+        _ammoInClipText.text = currentAmmoInClip.ToString();
+        _ammoInInventoryText.text = $"/ {currentAmmoInInventory}";
     }
 }
 
 [Serializable]
-public struct Ammo
+public class Ammo
 {
     public string name;
     [Space]
@@ -35,7 +44,7 @@ public struct Ammo
 
 public enum AmmoTypes
 {
-    _9mm, //smaller bullet, faster, less recoil, less power, less damage
-    _45acp //bigger buller, slower, more recoil, more power, more damage
+    _9mm, 
+    _45acp 
 
 }

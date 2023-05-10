@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: Beretta 92
   ammoType: 1
-  magazineCapacity: 17
+  magazineCapacity: 15
   automatic: 0
-  maxFireDistance: 50
+  maxFireDistance: 25
   fireDelay: 0.26
   reloadDelay: 2
   timeToResetAccuracy: 0.38
   firstAccurateShots: 2
-  recoilMultiplier: 0
   spreadAmount: 0
+  recoilAmountXMin: 0
+  recoilAmountXMax: 0
+  recoilAmountYMin: 0
+  recoilAmountYMax: 0
+  recoilAmountZMin: 0
+  recoilAmountZMax: 0

@@ -13,8 +13,17 @@ public class GunScriptableObject : ScriptableObject
     public float maxFireDistance;
     public float fireDelay;
     public float reloadDelay;
+    [Space]
     public float timeToResetAccuracy = 1.5f;
     public int firstAccurateShots = 2;
-    public float recoilMultiplier;
     public float spreadAmount;
+    [Space]
+    public float recoilAmountXMin;
+    public float recoilAmountXMax;
+    [Space]
+    public float recoilAmountYMin;
+    public float recoilAmountYMax;
+    [Space]
+    public float recoilAmountZMin;
+    public float recoilAmountZMax;
 }

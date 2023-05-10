@@ -10,25 +10,28 @@ public class GunVisuals : MonoBehaviour
     [SerializeField] private ParticleSystem _muzzleFlash;
     
 
-
     private void Start()
     {
         _gunHandler.FireWeaponEvent += PlayFireAnimation;
         _gunHandler.ReloadWeaponEvent += PlayReloadAnimation;
     }
 
-    private void PlayFireAnimation(object sender, EventArgs e)
+    private void PlayFireAnimation(object sender, GunHandler.GunEventArgs e)
     {
+        var frameToPlay = e.isLastBullet ? 83.0f : 1.0f; //different animation based on last bullet
+
         _animator.speed = 1.0f; //to reset speed
-        PlayAnimatorOnFrame(1.0f); //fire animation
+        PlayAnimatorOnFrame(frameToPlay); //fire animation
 
         _muzzleFlash.Play();
     }
 
-    private void PlayReloadAnimation(object sender, EventArgs e)
+    private void PlayReloadAnimation(object sender, GunHandler.GunEventArgs e)
     {
+        var frameToPlay = e.isLastBullet ? 95.0f : 12.0f; //different animation based on last bullet
+
         _animator.speed = 1.0f; //to reset speed
-        PlayAnimatorOnFrame(12.0f); //fire animation
+        PlayAnimatorOnFrame(frameToPlay); //fire animation
     }
 
     public void StopAnimating()
