@@ -24,10 +24,10 @@ public class GunHandler : MonoBehaviour
     private int _shotsFiredInARow;
     private float _shotTimer;
 
-    private GunInfoHolder _equipedGun;
+    private static GunInfoHolder _equipedGun;
+    public static EventHandler<GunEventArgs> FireWeaponEvent;
+    public static EventHandler<GunEventArgs> ReloadWeaponEvent;
 
-    public EventHandler<GunEventArgs> FireWeaponEvent;
-    public EventHandler<GunEventArgs> ReloadWeaponEvent;
     public class GunEventArgs : EventArgs
     {
         public bool isLastBullet = false;
@@ -101,9 +101,13 @@ public class GunHandler : MonoBehaviour
                 if (hit.collider)
                 {
                     //instantiate bullet hole on object hit
-                    Instantiate(_bulletHoleDecal, hit.point, Quaternion.LookRotation(-hit.normal));
+                    Instantiate(_bulletHoleDecal, hit.point, Quaternion.LookRotation(-hit.normal), hit.collider.transform);
 
-                    //find damageable object / hittable object and trigger hit function
+                    //find hittable object and trigger hit function
+                    if(hit.collider.TryGetComponent<IHittable>(out var hittable)) 
+                    {
+                        hittable.OnHit();
+                    }
 
                     //take off the ammo
                     _equipedGun.ammoInClip--;
@@ -186,7 +190,7 @@ public class GunHandler : MonoBehaviour
         _equipedGun.gunObject.SetActive(true);
     }
 
-    public GunInfoHolder GetEquipedGun()
+    public static GunInfoHolder GetEquipedGun()
     {
         return _equipedGun;
     }

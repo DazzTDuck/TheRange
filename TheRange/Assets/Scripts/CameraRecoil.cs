@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CameraRecoil : MonoBehaviour
 {
-    [SerializeField] private GunHandler _gunHandler;
     [SerializeField] private PlayerCamera _camera;
     [SerializeField] private PlayerMovementPhysics _player;
     [Space]
@@ -15,7 +14,7 @@ public class CameraRecoil : MonoBehaviour
 
     private void Start()
     {
-        _gunHandler.FireWeaponEvent += AddRecoil;
+        GunHandler.FireWeaponEvent += AddRecoil;
     }
 
     private void Update()
@@ -46,19 +45,19 @@ public class CameraRecoil : MonoBehaviour
         float zAmount = 0;
 
         //handle all random recoil amounts for each axis
-        if (Mathf.Abs(_gunHandler.GetEquipedGun().data.recoilAmountXMin) > 0)
+        if (Mathf.Abs(GunHandler.GetEquipedGun().data.recoilAmountXMin) > 0)
         {
-            xAmount = UnityEngine.Random.Range(_gunHandler.GetEquipedGun().data.recoilAmountXMin, _gunHandler.GetEquipedGun().data.recoilAmountXMax);
+            xAmount = UnityEngine.Random.Range(GunHandler.GetEquipedGun().data.recoilAmountXMin, GunHandler.GetEquipedGun().data.recoilAmountXMax);
         }
 
-        if(Mathf.Abs(_gunHandler.GetEquipedGun().data.recoilAmountYMin) > 0)
+        if(Mathf.Abs(GunHandler.GetEquipedGun().data.recoilAmountYMin) > 0)
         {
-            yAmount = UnityEngine.Random.Range(_gunHandler.GetEquipedGun().data.recoilAmountYMin, _gunHandler.GetEquipedGun().data.recoilAmountYMax); ;
+            yAmount = UnityEngine.Random.Range(GunHandler.GetEquipedGun().data.recoilAmountYMin, GunHandler.GetEquipedGun().data.recoilAmountYMax); ;
         }
 
-        if(Mathf.Abs(_gunHandler.GetEquipedGun().data.recoilAmountZMin) > 0)
+        if(Mathf.Abs(GunHandler.GetEquipedGun().data.recoilAmountZMin) > 0)
         {
-            zAmount = UnityEngine.Random.Range(_gunHandler.GetEquipedGun().data.recoilAmountZMin, _gunHandler.GetEquipedGun().data.recoilAmountZMax);
+            zAmount = UnityEngine.Random.Range(GunHandler.GetEquipedGun().data.recoilAmountZMin, GunHandler.GetEquipedGun().data.recoilAmountZMax);
         }
 
         _recoilAmount -= new Vector3(xAmount, yAmount, zAmount);
@@ -66,6 +65,6 @@ public class CameraRecoil : MonoBehaviour
 
     private void OnDisable()
     {
-        _gunHandler.FireWeaponEvent -= AddRecoil;
+        GunHandler.FireWeaponEvent -= AddRecoil;
     }
 }

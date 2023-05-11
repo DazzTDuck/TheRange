@@ -5,19 +5,22 @@ using UnityEngine;
 
 public class GunVisuals : MonoBehaviour
 {
-    [SerializeField] private GunHandler _gunHandler;
     [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private ParticleSystem _muzzleFlash;
     
 
     private void Start()
     {
-        _gunHandler.FireWeaponEvent += PlayFireAnimation;
-        _gunHandler.ReloadWeaponEvent += PlayReloadAnimation;
+        GunHandler.FireWeaponEvent += PlayFireAnimation;
+        GunHandler.ReloadWeaponEvent += PlayReloadAnimation;
     }
 
     private void PlayFireAnimation(object sender, GunHandler.GunEventArgs e)
     {
+        //play sound
+        _audioSource.PlayOneShot(GunHandler.GetEquipedGun().data.gunFire);
+
         var frameToPlay = e.isLastBullet ? 83.0f : 1.0f; //different animation based on last bullet
 
         _animator.speed = 1.0f; //to reset speed
@@ -28,6 +31,9 @@ public class GunVisuals : MonoBehaviour
 
     private void PlayReloadAnimation(object sender, GunHandler.GunEventArgs e)
     {
+        //play sound
+        _audioSource.PlayOneShot(GunHandler.GetEquipedGun().data.gunReload);
+
         var frameToPlay = e.isLastBullet ? 95.0f : 12.0f; //different animation based on last bullet
 
         _animator.speed = 1.0f; //to reset speed
@@ -48,7 +54,7 @@ public class GunVisuals : MonoBehaviour
 
     private void OnDisable()
     {
-        _gunHandler.FireWeaponEvent -= PlayFireAnimation;
-        _gunHandler.ReloadWeaponEvent -= PlayReloadAnimation;
+        GunHandler.FireWeaponEvent -= PlayFireAnimation;
+        GunHandler.ReloadWeaponEvent -= PlayReloadAnimation;
     }
 }

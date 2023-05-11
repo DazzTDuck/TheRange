@@ -26,4 +26,8 @@ public class GunScriptableObject : ScriptableObject
     [Space]
     public float recoilAmountZMin;
     public float recoilAmountZMax;
+    [Space]
+    public AudioClip gunFire;
+    public AudioClip gunReload;
+
 }

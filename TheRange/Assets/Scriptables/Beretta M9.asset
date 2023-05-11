@@ -18,13 +18,15 @@ MonoBehaviour:
   automatic: 0
   maxFireDistance: 25
   fireDelay: 0.15
-  reloadDelay: 2
+  reloadDelay: 2.2
   timeToResetAccuracy: 0.6
   firstAccurateShots: 1
   spreadAmount: 7
-  recoilAmountXMin: 3.5
-  recoilAmountXMax: 4.2
-  recoilAmountYMin: -0.5
-  recoilAmountYMax: 0.5
-  recoilAmountZMin: -0.5
-  recoilAmountZMax: 0.5
+  recoilAmountXMin: 2.5
+  recoilAmountXMax: 3
+  recoilAmountYMin: -1.5
+  recoilAmountYMax: 1.5
+  recoilAmountZMin: -1.5
+  recoilAmountZMax: 1.5
+  gunFire: {fileID: 8300000, guid: 3d80e910a3cebf044877cf23b5b114f0, type: 3}
+  gunReload: {fileID: 8300000, guid: b4574efd340290641b5cf03f00553578, type: 3}
