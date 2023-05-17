@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GunHandler : MonoBehaviour
 {
+    public static GunHandler Instance { get; private set; }
+
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private Transform _shootingPoint;
     [SerializeField] private AmmoHandler _ammoHandler;
@@ -23,10 +25,11 @@ public class GunHandler : MonoBehaviour
     private float _spreadAmount;
     private int _shotsFiredInARow;
     private float _shotTimer;
+    private int _equipedIndex = 0;
 
-    private static GunInfoHolder _equipedGun;
-    public static EventHandler<GunEventArgs> FireWeaponEvent;
-    public static EventHandler<GunEventArgs> ReloadWeaponEvent;
+    public EventHandler<GunEventArgs> FireWeaponEvent;
+    public EventHandler<GunEventArgs> ReloadWeaponEvent;
+    public EventHandler SwitchWeaponEvent;
 
     public class GunEventArgs : EventArgs
     {
@@ -36,26 +39,36 @@ public class GunHandler : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
 
+    private void Awake()
+    {
+        //If there is an instance, and it's not this, delete myself.
+        if (Instance != null && Instance != this)
+            Destroy(this);
+        else
+            Instance = this;
+    }
+
     private void Start()
     {
         //set first gun in "_allGuns" to be the equiped gun
-        _equipedGun = _allGuns[0];
+        _equipedIndex = 0;
         EnableEquipedGun();
 
-        //set ammo in the clip for the first time
-        _equipedGun.ammoInClip = _equipedGun.data.magazineCapacity;
+        //give all guns ammo
+        SetAmmoOfAllGuns();
         //set ammo text
         UpdateAmmoVisual();
     }
 
     private void Update()
     {
-        FireGun();
-        GunReload();
+        FireWeapon();
+        ReloadWeapon();
         ShootingTimer();
+        SwitchWeapon();
     }
 
-    private void FireGun()
+    private void FireWeapon()
     {
         //lerp spread amount back down to 0
         if (_spreadAmount > 0)
@@ -65,16 +78,16 @@ public class GunHandler : MonoBehaviour
             _spreadAmount = 0;
 
         //get fire input
-        _wantsToFire = _equipedGun.data.automatic ? Input.GetButton("Fire1") : Input.GetButtonDown("Fire1");
+        _wantsToFire = GetEquipedGun().data.automatic ? Input.GetButton("Fire1") : Input.GetButtonDown("Fire1");
 
         //if wants to fire but ammo in clip in 0, force a reload
-        if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping && _equipedGun.ammoInClip == 0)
+        if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping && GetEquipedGun().ammoInClip == 0)
         {
-            GunReload(true);
+            ReloadWeapon(true);
             return;
         }
 
-        if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping && _equipedGun.ammoInClip > 0)
+        if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping && GetEquipedGun().ammoInClip > 0)
         {
             //calculate spread of shooting
             var randomSpreadX = UnityEngine.Random.Range(-_spreadAmount, _spreadAmount);
@@ -87,44 +100,45 @@ public class GunHandler : MonoBehaviour
             //set variables
             _isFireing = true;
             _shotsFiredInARow++;
-            _shotTimer = _equipedGun.data.timeToResetAccuracy;
-
+            _shotTimer = GetEquipedGun().data.timeToResetAccuracy;
+                
             //is amount fired is above the firstAccurateShots, increase the spread
-            if (_shotsFiredInARow > _equipedGun.data.firstAccurateShots)
+            if (_shotsFiredInARow > GetEquipedGun().data.firstAccurateShots)
             {
-                _spreadAmount += _equipedGun.data.spreadAmount;
+                _spreadAmount += GetEquipedGun().data.spreadAmount;
             }
 
             //Shooting logic
-            if (Physics.Raycast(ray, out hit, _equipedGun.data.maxFireDistance))
+            if (Physics.Raycast(ray, out hit, GetEquipedGun().data.maxFireDistance))
             {
                 if (hit.collider)
                 {
                     //instantiate bullet hole on object hit
-                    Instantiate(_bulletHoleDecal, hit.point, Quaternion.LookRotation(-hit.normal), hit.collider.transform);
+                    var bulletHole = Instantiate(_bulletHoleDecal, hit.point, Quaternion.LookRotation(-hit.normal));
+                    bulletHole.transform.SetParent(hit.collider.transform, true);
 
                     //find hittable object and trigger hit function
                     if(hit.collider.TryGetComponent<IHittable>(out var hittable)) 
                     {
-                        hittable.OnHit();
+                        hittable.OnHit(_ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoDamage);
                     }
-
-                    //take off the ammo
-                    _equipedGun.ammoInClip--;
-                    UpdateAmmoVisual();
                 }
-            }  
+            }
+
+            //take off the ammo
+            GetEquipedGun().ammoInClip--;
+            UpdateAmmoVisual();
 
             //start timer
             var fireTimer = gameObject.AddComponent<Timer>();
-            fireTimer.StartTimer(_equipedGun.data.fireDelay, () => { _isFireing = false; Destroy(fireTimer); });
+            fireTimer.StartTimer(GetEquipedGun().data.fireDelay, () => { _isFireing = false; Destroy(fireTimer); });
 
             //activates fire weapon event
-            FireWeaponEvent?.Invoke(this, new GunEventArgs { isLastBullet = _equipedGun.ammoInClip == 0 } );
+            FireWeaponEvent?.Invoke(this, new GunEventArgs { isLastBullet = GetEquipedGun().ammoInClip == 0 } );
         }
     }
 
-    private void GunReload(bool bypassInput = false, bool lastBullet = false)
+    private void ReloadWeapon(bool bypassInput = false, bool lastBullet = false)
     {
         //for if you want to force a reload by code
         if (!bypassInput)
@@ -135,33 +149,65 @@ public class GunHandler : MonoBehaviour
 
         //check all booleans and if ammo has been used and if there is enough reserve to reload
         if (_wantsToReload && !_isFireing && !_isReloading && !_isEquiping && 
-            _equipedGun.ammoInClip < _equipedGun.data.magazineCapacity && _ammoHandler.GetAmmo(_equipedGun.data.ammoType).ammoInInventory > 0)
+            GetEquipedGun().ammoInClip < GetEquipedGun().data.magazineCapacity && _ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory > 0)
         {
             _shotsFiredInARow = 0;
             _isReloading = true;        
 
             //start timer, at the end of timer reset everything and update ammo count
             var reloadTimer = gameObject.AddComponent<Timer>();
-            reloadTimer.StartTimer(_equipedGun.data.reloadDelay, () => { AmmoReloadUpdate(); _isReloading = false; Destroy(reloadTimer); });
+            reloadTimer.StartTimer(GetEquipedGun().data.reloadDelay, () => { AmmoReloadUpdate(); _isReloading = false; Destroy(reloadTimer); });
 
-            ReloadWeaponEvent?.Invoke(this, new GunEventArgs { isLastBullet = _equipedGun.ammoInClip == 0 });
+            ReloadWeaponEvent?.Invoke(this, new GunEventArgs { isLastBullet = GetEquipedGun().ammoInClip == 0 });
         }
     }
 
     public void AmmoReloadUpdate()
     {
         //Reload logic
-        var reloadAmount = _equipedGun.data.magazineCapacity - _equipedGun.ammoInClip;
+        var reloadAmount = GetEquipedGun().data.magazineCapacity - GetEquipedGun().ammoInClip;
 
-        if(_ammoHandler.GetAmmo(_equipedGun.data.ammoType).ammoInInventory - reloadAmount < 0)
+        if(_ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory - reloadAmount < 0)
         {
-           var difference = _ammoHandler.GetAmmo(_equipedGun.data.ammoType).ammoInInventory - reloadAmount;
+           var difference = _ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory - reloadAmount;
            reloadAmount += difference;
         }
 
-        _equipedGun.ammoInClip += reloadAmount;
-        _ammoHandler.GetAmmo(_equipedGun.data.ammoType).ammoInInventory -= reloadAmount;
+        GetEquipedGun().ammoInClip += reloadAmount;
+        _ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory -= reloadAmount;
         UpdateAmmoVisual();
+    }
+
+    private void SwitchWeapon()
+    {
+        var mouseWheelInput = Input.GetAxisRaw("Mouse ScrollWheel");
+        
+        if(Mathf.Abs(mouseWheelInput) > 0 && !_isEquiping)
+        {
+            //enable bool and up index
+            _isEquiping = true;
+            
+            //change index based on what way you scroll the mouse
+            if(mouseWheelInput < 0)
+                _equipedIndex++;
+            else if(mouseWheelInput > 0)
+                _equipedIndex--;
+
+            if (_equipedIndex >= _allGuns.Length) //make sure the index is corrext
+                _equipedIndex = 0;
+            else if(_equipedIndex < 0)
+                _equipedIndex = _allGuns.Length - 1; //go to the last weapon
+
+            //switch the equiped gun and enable models of the equiped gun
+            EnableEquipedGun();
+            UpdateAmmoVisual();
+
+            //equip timer, at the end of timer reset everything so you can switch again
+            var equipTimer = gameObject.AddComponent<Timer>();
+            equipTimer.StartTimer(1f, () => { _isEquiping = false; Destroy(equipTimer); });
+
+            SwitchWeaponEvent?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void ShootingTimer()
@@ -175,9 +221,9 @@ public class GunHandler : MonoBehaviour
         }      
     }
 
-    private void UpdateAmmoVisual()
+    public void UpdateAmmoVisual()
     {
-        _ammoHandler.EditAmmoText(_equipedGun.ammoInClip, _ammoHandler.GetAmmo(_equipedGun.data.ammoType).ammoInInventory);
+        _ammoHandler.EditAmmoText(GetEquipedGun().ammoInClip, _ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory);
     }
 
     private void EnableEquipedGun()
@@ -187,12 +233,21 @@ public class GunHandler : MonoBehaviour
             _allGuns[i].gunObject.SetActive(false);
         }
 
-        _equipedGun.gunObject.SetActive(true);
+        GetEquipedGun().gunObject.SetActive(true);
     }
 
-    public static GunInfoHolder GetEquipedGun()
+    private void SetAmmoOfAllGuns()
     {
-        return _equipedGun;
+        for (int i = 0; i < _allGuns.Length; i++)
+        {
+            //set ammo in clip for each gun so all have ammo from start
+            _allGuns[i].ammoInClip = _allGuns[i].data.magazineCapacity;
+        }
+    }
+
+    public ref GunInfoHolder GetEquipedGun()
+    {
+        return ref _allGuns[_equipedIndex];
     }
 }
 

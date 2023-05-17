@@ -22,11 +22,11 @@ MonoBehaviour:
   timeToResetAccuracy: 0.6
   firstAccurateShots: 1
   spreadAmount: 7
-  recoilAmountXMin: 2.5
-  recoilAmountXMax: 3
-  recoilAmountYMin: -1.5
-  recoilAmountYMax: 1.5
-  recoilAmountZMin: -1.5
-  recoilAmountZMax: 1.5
+  recoilAmountXMin: 2.1
+  recoilAmountXMax: 2.6
+  recoilAmountYMin: -1
+  recoilAmountYMax: 1
+  recoilAmountZMin: -1
+  recoilAmountZMax: 1
   gunFire: {fileID: 8300000, guid: 3d80e910a3cebf044877cf23b5b114f0, type: 3}
   gunReload: {fileID: 8300000, guid: b4574efd340290641b5cf03f00553578, type: 3}

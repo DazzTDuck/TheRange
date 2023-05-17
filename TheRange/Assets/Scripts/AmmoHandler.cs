@@ -26,6 +26,14 @@ public class AmmoHandler : MonoBehaviour
         _ammoInClipText.text = currentAmmoInClip.ToString();
         _ammoInInventoryText.text = $"/ {currentAmmoInInventory}";
     }
+
+    public void MaximizeAmmo()
+    {
+        for (int i = 0; i < _allAmmoTypes.Length; i++)
+        {
+            _allAmmoTypes[i].ammoInInventory = _allAmmoTypes[i].maxAmmo;
+        }
+    }
 }
 
 [Serializable]

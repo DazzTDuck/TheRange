@@ -17,14 +17,16 @@ MonoBehaviour:
   magazineCapacity: 15
   automatic: 0
   maxFireDistance: 25
-  fireDelay: 0.26
-  reloadDelay: 2
-  timeToResetAccuracy: 0.38
-  firstAccurateShots: 2
-  spreadAmount: 0
-  recoilAmountXMin: 0
-  recoilAmountXMax: 0
-  recoilAmountYMin: 0
-  recoilAmountYMax: 0
-  recoilAmountZMin: 0
-  recoilAmountZMax: 0
+  fireDelay: 0.21
+  reloadDelay: 2.2
+  timeToResetAccuracy: 0.8
+  firstAccurateShots: 1
+  spreadAmount: 8
+  recoilAmountXMin: 2.5
+  recoilAmountXMax: 2.8
+  recoilAmountYMin: -1.3
+  recoilAmountYMax: 1.3
+  recoilAmountZMin: -1.3
+  recoilAmountZMax: 1.3
+  gunFire: {fileID: 8300000, guid: e88a0976c52f93047b3c9ade4028bc15, type: 3}
+  gunReload: {fileID: 8300000, guid: b4574efd340290641b5cf03f00553578, type: 3}

@@ -12,14 +12,14 @@ public class GunVisuals : MonoBehaviour
 
     private void Start()
     {
-        GunHandler.FireWeaponEvent += PlayFireAnimation;
-        GunHandler.ReloadWeaponEvent += PlayReloadAnimation;
+        GunHandler.Instance.FireWeaponEvent += PlayFireAnimation;
+        GunHandler.Instance.ReloadWeaponEvent += PlayReloadAnimation;
     }
 
     private void PlayFireAnimation(object sender, GunHandler.GunEventArgs e)
     {
         //play sound
-        _audioSource.PlayOneShot(GunHandler.GetEquipedGun().data.gunFire);
+        _audioSource.PlayOneShot(GunHandler.Instance.GetEquipedGun().data.gunFire);
 
         var frameToPlay = e.isLastBullet ? 83.0f : 1.0f; //different animation based on last bullet
 
@@ -32,7 +32,7 @@ public class GunVisuals : MonoBehaviour
     private void PlayReloadAnimation(object sender, GunHandler.GunEventArgs e)
     {
         //play sound
-        _audioSource.PlayOneShot(GunHandler.GetEquipedGun().data.gunReload);
+        _audioSource.PlayOneShot(GunHandler.Instance.GetEquipedGun().data.gunReload);
 
         var frameToPlay = e.isLastBullet ? 95.0f : 12.0f; //different animation based on last bullet
 
@@ -54,7 +54,7 @@ public class GunVisuals : MonoBehaviour
 
     private void OnDisable()
     {
-        GunHandler.FireWeaponEvent -= PlayFireAnimation;
-        GunHandler.ReloadWeaponEvent -= PlayReloadAnimation;
+        GunHandler.Instance.FireWeaponEvent -= PlayFireAnimation;
+        GunHandler.Instance.ReloadWeaponEvent -= PlayReloadAnimation;
     }
 }

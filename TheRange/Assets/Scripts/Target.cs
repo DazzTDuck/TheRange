@@ -8,6 +8,7 @@ public class Target : MonoBehaviour, IHittable
     [SerializeField] private Vector3 _rotationWhenHit;
     [Space]
     [SerializeField] private bool _rotateOnHit = false;
+    [SerializeField] private bool _rotateShortWay = false;
     [SerializeField] private float _rotateLerpSpeed = 3f;
     [SerializeField] private bool _resetRotationAfterTime = false;
     [SerializeField] private float _resetRotationTime = 4f;
@@ -19,7 +20,7 @@ public class Target : MonoBehaviour, IHittable
     private bool _canBeHit = true;
     private void Start()
     {
-        _currentRotation = transform.rotation;
+        _currentRotation = transform.localRotation;
     }
 
     private void Update()
@@ -28,10 +29,10 @@ public class Target : MonoBehaviour, IHittable
             return;
 
         var rotationTo = _rotate ? _nextRotation : _currentRotation;
-        transform.rotation = Lerp(transform.rotation, rotationTo, _rotateLerpSpeed * Time.deltaTime, false);
+        transform.localRotation = Lerp(transform.localRotation, rotationTo, _rotateLerpSpeed * Time.deltaTime, _rotateShortWay);
     }
 
-    public void OnHit()
+    public void OnHit(float damage)
     {
         if (!_canBeHit)
             return;

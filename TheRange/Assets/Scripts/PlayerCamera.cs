@@ -102,5 +102,4 @@ public class PlayerCamera : MonoBehaviour
         _recoilMultiplier = recoilMultiplier;
         _recoilAmount = recoilAmount;
     }
-
 }
