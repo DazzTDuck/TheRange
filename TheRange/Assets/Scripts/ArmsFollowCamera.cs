@@ -6,40 +6,30 @@ using UnityEngine.UIElements;
 
 public class ArmsFollowCamera : MonoBehaviour
 {
-    [SerializeField] private Transform _toFollowPosition;
-    [SerializeField] private Transform _toFollowRotation;
+    [SerializeField] private Transform _cameraTransform;
     [SerializeField] private float _lerpSpeedPosition;
     [SerializeField] private float _lerpSpeedRotation;
-    [SerializeField] private float _smoothTime = 0.5f;
 
     private Vector3 _positionOffset;
-    private float velocity;
-    float yPosition;
+    private float _yLerped;
 
     private void Awake()
     {
-        _positionOffset = transform.position - _toFollowPosition.position; //calcualte position difference to make an offset
+        _positionOffset = transform.position - _cameraTransform.position; //calcualte position difference to make an offset
     }
   
     private void Update()
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, _toFollowRotation.rotation, Time.deltaTime * _lerpSpeedRotation);
+        transform.rotation = Quaternion.Lerp(transform.rotation, _cameraTransform.rotation, Time.smoothDeltaTime * _lerpSpeedRotation);
 
-        var position = _toFollowPosition.position + _positionOffset;
-        transform.position = new Vector3(position.x, transform.position.y, position.z);
-    }
+        var position = _cameraTransform.position + _positionOffset;
+        _yLerped = LerpAxis(transform.position.y, position.y);
 
-    private void FixedUpdate()
-    {
-        var position = _toFollowPosition.position + _positionOffset;
-
-        yPosition = Mathf.SmoothDamp(yPosition, position.y, ref velocity, _smoothTime);
-        var ylerped = LerpAxis(transform.position.y, yPosition);
-        transform.position = new Vector3(transform.position.x, ylerped, transform.position.z);
+        transform.position = new Vector3(position.x, _yLerped, position.z);
     }
 
     private float LerpAxis(float axis, float target)
     {
-        return Mathf.Lerp(axis, target, Time.fixedDeltaTime * _lerpSpeedPosition);
+        return Mathf.Lerp(axis, target, Time.smoothDeltaTime * _lerpSpeedPosition);
     }
 }

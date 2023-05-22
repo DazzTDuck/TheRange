@@ -182,7 +182,7 @@ public class GunHandler : MonoBehaviour
     {
         var mouseWheelInput = Input.GetAxisRaw("Mouse ScrollWheel");
         
-        if(Mathf.Abs(mouseWheelInput) > 0 && !_isEquiping)
+        if(Mathf.Abs(mouseWheelInput) > 0 && !_isEquiping && !_isReloading && !_isFireing)
         {
             //enable bool and up index
             _isEquiping = true;

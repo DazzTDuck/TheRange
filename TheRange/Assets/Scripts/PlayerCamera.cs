@@ -1,9 +1,11 @@
 ﻿using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
     [Header("--Settings--")]
+    [SerializeField] private float _cameraDistanceFromCenter = 1f;
     [Tooltip("Sensitivity of the camera movement")]
     [SerializeField] private float _sensitivity = 3f;
     [SerializeField] private float _maxRotX = 45f;
@@ -13,6 +15,7 @@ public class PlayerCamera : MonoBehaviour
 
     [Header("--Player reference--")]
     [SerializeField] private Transform _player;
+    [SerializeField] private Transform _cameraPointTransform;
     [SerializeField] private PlayerMovementPhysics _playerMovement;
 
     [HideInInspector]
@@ -22,6 +25,8 @@ public class PlayerCamera : MonoBehaviour
 
     private Vector3 _recoilAmount;
     private Vector3 _startLocalPositionCam;
+    private Vector3 _cameraTarget;
+    private Vector3 _offset;
     private float _timer;
     private float _recoilMultiplier;
 
@@ -29,12 +34,14 @@ public class PlayerCamera : MonoBehaviour
     {
         HideCursor();
         _startLocalPositionCam = transform.localPosition;
+        _offset = _player.position;
     }
 
     private void Update()
     {
-        CalculateRotationsAndPositions();
+        CalculateRotationsAndPositions();    
     }
+
 
     private void CalculateRotationsAndPositions()
     {
@@ -53,6 +60,14 @@ public class PlayerCamera : MonoBehaviour
         //rotate player body
         _player.eulerAngles = bodyRotation;
 
+        //calulate new position based on angle to rotate around player center
+        //_offset = Quaternion.AngleAxis(rotCamY * _sensitivity, Vector3.up) * _offset;
+        _cameraTarget = _player.position + new Vector3(0, _startLocalPositionCam.y, 0) - (transform.forward * -_cameraDistanceFromCenter);
+
+        //setting camera to correct position relavtive to player, lerp has set value because it just needs to be instant so no need for it to change
+        //this gives a smooth follow without any stuttering
+        transform.position = Vector3.Lerp(transform.position, _cameraTarget, 75 * Time.deltaTime);
+
         HandleCameraBobbing();
     }
 
@@ -68,13 +83,13 @@ public class PlayerCamera : MonoBehaviour
         if (_playerMovement.GetRigidbody().velocity.magnitude > 0.2f && _playerMovement.IsGrounded)
         {
             _timer += Time.deltaTime;
-            transform.localPosition = GetBobbing(_timer, _bobbingPeriod, _bobbingAmplitude, _startLocalPositionCam, absoluteVelocity);
+            //transform.localPosition = GetBobbing(_timer, _bobbingPeriod, _bobbingAmplitude, _startLocalPositionCam, absoluteVelocity);
 
         }
         else if (_playerMovement.GetRigidbody().velocity.magnitude < 0.2f && _playerMovement.IsGrounded)
         {
             _timer = 0;
-            transform.localPosition = Vector3.Lerp(transform.localPosition, _startLocalPositionCam, Time.deltaTime * 1); //smoothly go back
+            //transform.localPosition = Vector3.Lerp(transform.localPosition, _startLocalPositionCam, Time.deltaTime * 1); //smoothly go back
         }
     }
 
@@ -82,7 +97,7 @@ public class PlayerCamera : MonoBehaviour
     {
         float theta = timer / (period);
         float distance = (amplitude * absoluteVelocity) * Mathf.Sin(theta);
-        return localPosition + Vector3.up * distance;
+        return transform.localPosition + Vector3.up * distance;
     }
 
     public void HideCursor()
