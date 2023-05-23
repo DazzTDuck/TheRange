@@ -64,9 +64,9 @@ public class PlayerCamera : MonoBehaviour
         //_offset = Quaternion.AngleAxis(rotCamY * _sensitivity, Vector3.up) * _offset;
         _cameraTarget = _player.position + new Vector3(0, _startLocalPositionCam.y, 0) - (transform.forward * -_cameraDistanceFromCenter);
 
-        //setting camera to correct position relavtive to player, lerp has set value because it just needs to be instant so no need for it to change
-        //this gives a smooth follow without any stuttering
-        transform.position = Vector3.Lerp(transform.position, _cameraTarget, 75 * Time.deltaTime);
+        //setting camera to correct position relavtive to player
+        //transform.position = Vector3.Lerp(transform.position, _cameraTarget, 150 * Time.deltaTime);
+        transform.position = _cameraTarget;
 
         HandleCameraBobbing();
     }
