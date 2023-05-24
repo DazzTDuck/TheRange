@@ -9,10 +9,10 @@ public class ArmsFollowCamera : MonoBehaviour
 {
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private float _lerpSpeedPosition;
+    [SerializeField] private float _dampSpeedPosition;
     [SerializeField] private float _lerpSpeedRotation;
 
     private Vector3 _positionOffset;
-    private Vector3 _newPosition;
 
     private void Awake()
     {
@@ -23,8 +23,7 @@ public class ArmsFollowCamera : MonoBehaviour
     {
         var position = _cameraTransform.position + _positionOffset;
 
-        transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * _lerpSpeedPosition);
-        //transform.position = position;
-        transform.rotation = Quaternion.Lerp(transform.rotation, _cameraTransform.rotation, Time.deltaTime * _lerpSpeedRotation);
+        transform.position = position;
+        transform.rotation = Quaternion.Lerp(transform.rotation, _cameraTransform.rotation, Time.deltaTime * _lerpSpeedRotation);     
     }
 }

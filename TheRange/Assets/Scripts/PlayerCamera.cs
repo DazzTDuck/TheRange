@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -12,6 +10,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float _minRotX = -55;
     [SerializeField] private float _bobbingAmplitude = 1f;
     [SerializeField] private float _bobbingPeriod = 0.1f;
+    [SerializeField] private float _cameraPointDampSpeed = 0.1f;
 
     [Header("--Player reference--")]
     [SerializeField] private Transform _player;
@@ -27,6 +26,7 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 _startLocalPositionCam;
     private Vector3 _cameraTarget;
     private Vector3 _offset;
+    private Vector3 _velocity;
     private float _timer;
     private float _recoilMultiplier;
 
@@ -37,11 +37,10 @@ public class PlayerCamera : MonoBehaviour
         _offset = _player.position;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         CalculateRotationsAndPositions();    
     }
-
 
     private void CalculateRotationsAndPositions()
     {
@@ -65,9 +64,11 @@ public class PlayerCamera : MonoBehaviour
         _cameraTarget = _player.position + new Vector3(0, _startLocalPositionCam.y, 0) - (transform.forward * -_cameraDistanceFromCenter);
 
         //setting camera to correct position relavtive to player
-        //transform.position = Vector3.Lerp(transform.position, _cameraTarget, 150 * Time.deltaTime);
         transform.position = _cameraTarget;
 
+        //follow point of camera, used to get the moving direction
+        _cameraPointTransform.SetPositionAndRotation(Vector3.SmoothDamp(_cameraPointTransform.position, _cameraTarget, ref _velocity, _cameraPointDampSpeed), transform.rotation);
+        
         HandleCameraBobbing();
     }
 
@@ -83,13 +84,13 @@ public class PlayerCamera : MonoBehaviour
         if (_playerMovement.GetRigidbody().velocity.magnitude > 0.2f && _playerMovement.IsGrounded)
         {
             _timer += Time.deltaTime;
-            //transform.localPosition = GetBobbing(_timer, _bobbingPeriod, _bobbingAmplitude, _startLocalPositionCam, absoluteVelocity);
+            transform.localPosition = GetBobbing(_timer, _bobbingPeriod, _bobbingAmplitude, _startLocalPositionCam, absoluteVelocity);
 
         }
         else if (_playerMovement.GetRigidbody().velocity.magnitude < 0.2f && _playerMovement.IsGrounded)
         {
             _timer = 0;
-            //transform.localPosition = Vector3.Lerp(transform.localPosition, _startLocalPositionCam, Time.deltaTime * 1); //smoothly go back
+            transform.localPosition = Vector3.Lerp(transform.localPosition, _startLocalPositionCam, Time.deltaTime * 1); //smoothly go back
         }
     }
 
