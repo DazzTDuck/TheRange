@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GunVisuals : MonoBehaviour
@@ -14,6 +15,7 @@ public class GunVisuals : MonoBehaviour
     {
         GunHandler.Instance.FireWeaponEvent += PlayFireAnimation;
         GunHandler.Instance.ReloadWeaponEvent += PlayReloadAnimation;
+        GunHandler.Instance.SwitchWeaponEvent += PlaySwitchAnimation;
     }
 
     private void PlayFireAnimation(object sender, GunHandler.GunEventArgs e)
@@ -37,7 +39,20 @@ public class GunVisuals : MonoBehaviour
         var frameToPlay = e.isLastBullet ? 95.0f : 12.0f; //different animation based on last bullet
 
         _animator.speed = 1.0f; //to reset speed
-        PlayAnimatorOnFrame(frameToPlay); //fire animation
+        PlayAnimatorOnFrame(frameToPlay); //reload animation
+    }
+
+    private void PlaySwitchAnimation(object sender, GunHandler.GunEventArgs e)
+    {
+        var frameToPlay = e.gunIsSwitched ? 187.0f : 176.0f; //different animation based if the gun has switched
+
+        //get sound based on switch state
+        var sound = e.gunIsSwitched ? GunHandler.Instance.GetEquipedGun().data.gunSlide : GunHandler.Instance.GetEquipedGun().data.gunSwitch;
+        //play sound
+        _audioSource.PlayOneShot(sound);
+
+        _animator.speed = 1.0f; //to reset speed
+        PlayAnimatorOnFrame(frameToPlay); //switch animation
     }
 
     public void StopAnimating()
@@ -56,5 +71,6 @@ public class GunVisuals : MonoBehaviour
     {
         GunHandler.Instance.FireWeaponEvent -= PlayFireAnimation;
         GunHandler.Instance.ReloadWeaponEvent -= PlayReloadAnimation;
+        GunHandler.Instance.SwitchWeaponEvent -= PlaySwitchAnimation;
     }
 }

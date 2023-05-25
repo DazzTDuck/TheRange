@@ -29,11 +29,12 @@ public class GunHandler : MonoBehaviour
 
     public EventHandler<GunEventArgs> FireWeaponEvent;
     public EventHandler<GunEventArgs> ReloadWeaponEvent;
-    public EventHandler SwitchWeaponEvent;
+    public EventHandler<GunEventArgs> SwitchWeaponEvent;
 
     public class GunEventArgs : EventArgs
     {
         public bool isLastBullet = false;
+        public bool gunIsSwitched = false;
     }
 
     private Ray ray;
@@ -186,28 +187,35 @@ public class GunHandler : MonoBehaviour
         {
             //enable bool and up index
             _isEquiping = true;
-            
+
+            //equip timer, at the end of timer reset everything so you can switch again
+            var equipTimer = gameObject.AddComponent<Timer>();
+            equipTimer.StartTimer(GetEquipedGun().data.switchDelay, () => { SwitchWeaponEvent?.Invoke(this, new GunEventArgs { gunIsSwitched = true }); SecondSwitchTrigger(); Destroy(equipTimer);});
+
             //change index based on what way you scroll the mouse
-            if(mouseWheelInput < 0)
+            if (mouseWheelInput < 0)
                 _equipedIndex++;
-            else if(mouseWheelInput > 0)
+            else if (mouseWheelInput > 0)
                 _equipedIndex--;
 
             if (_equipedIndex >= _allGuns.Length) //make sure the index is corrext
                 _equipedIndex = 0;
-            else if(_equipedIndex < 0)
+            else if (_equipedIndex < 0)
                 _equipedIndex = _allGuns.Length - 1; //go to the last weapon
 
-            //switch the equiped gun and enable models of the equiped gun
-            EnableEquipedGun();
-            UpdateAmmoVisual();
-
-            //equip timer, at the end of timer reset everything so you can switch again
-            var equipTimer = gameObject.AddComponent<Timer>();
-            equipTimer.StartTimer(1f, () => { _isEquiping = false; Destroy(equipTimer); });
-
-            SwitchWeaponEvent?.Invoke(this, EventArgs.Empty);
+            SwitchWeaponEvent?.Invoke(this, new GunEventArgs{ gunIsSwitched = false });
         }
+    }
+
+    private void SecondSwitchTrigger()
+    {
+        //switch the equiped gun and enable models of the equiped gun
+        EnableEquipedGun();
+        UpdateAmmoVisual();
+
+        //equip timer, at the end of timer reset everything so you can switch again
+        var equipTimer = gameObject.AddComponent<Timer>();
+        equipTimer.StartTimer(GetEquipedGun().data.switchRecoverDelay, () => { _isEquiping = false; Destroy(equipTimer); });
     }
 
     private void ShootingTimer()

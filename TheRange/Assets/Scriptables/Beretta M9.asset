@@ -19,6 +19,8 @@ MonoBehaviour:
   maxFireDistance: 25
   fireDelay: 0.15
   reloadDelay: 2.2
+  switchDelay: 0.4
+  switchRecoverDelay: 1.5
   timeToResetAccuracy: 0.6
   firstAccurateShots: 1
   spreadAmount: 7
@@ -30,3 +32,5 @@ MonoBehaviour:
   recoilAmountZMax: 1
   gunFire: {fileID: 8300000, guid: 3d80e910a3cebf044877cf23b5b114f0, type: 3}
   gunReload: {fileID: 8300000, guid: b4574efd340290641b5cf03f00553578, type: 3}
+  gunSwitch: {fileID: 8300000, guid: eb8df47f2a5ae0e4db96663f074acd8c, type: 3}
+  gunSlide: {fileID: 8300000, guid: b4783c6e6943e8d43a2e13faa3a5b58a, type: 3}

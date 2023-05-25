@@ -13,6 +13,8 @@ public class GunScriptableObject : ScriptableObject
     public float maxFireDistance;
     public float fireDelay;
     public float reloadDelay;
+    public float switchDelay;
+    public float switchRecoverDelay;
     [Space]
     public float timeToResetAccuracy = 1.5f;
     public int firstAccurateShots = 2;
@@ -29,5 +31,7 @@ public class GunScriptableObject : ScriptableObject
     [Space]
     public AudioClip gunFire;
     public AudioClip gunReload;
+    public AudioClip gunSwitch;
+    public AudioClip gunSlide;
 
 }
