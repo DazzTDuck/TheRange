@@ -1669,7 +1669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 1
+  _pointsGetOnHit: 6
   _rotationWhenHit: {x: 0, y: 0, z: 0}
   _rotateOnHit: 0
   _rotateShortWay: 0
@@ -4311,6 +4311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2112080729}
+  - component: {fileID: 2112116602}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -4318,6 +4319,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2112116602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112116601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d04054b3279b44ba759af75a94f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameTimeInSeconds: 89
+  _pointsText: {fileID: 1608522803}
+  _highscoreText: {fileID: 1148929848}
+  _timerText: {fileID: 202507911}
 --- !u!1 &2112116603
 GameObject:
   m_ObjectHideFlags: 0
@@ -5398,6 +5415,7 @@ MonoBehaviour:
   - {fileID: 1257464381}
   - {fileID: 431247370}
   - {fileID: 1764035616}
+  _multiplierForPoints: 0.2
   _damageText: {fileID: 1286980635}
   _timeToReset: 3
 --- !u!1 &919132148819490607
@@ -5817,6 +5835,18 @@ MonoBehaviour:
       - m_Target: {fileID: 919132149209420503}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2112116602}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9261,7 +9291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: 0, y: -20, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 0
@@ -10065,7 +10095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: -90, y: 180, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 1
@@ -11463,7 +11493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: 0, y: 160, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 0
@@ -11586,7 +11616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: -90, y: 180, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 1
@@ -11661,7 +11691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: -90, y: 180, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 1
@@ -11806,7 +11836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: 0, y: 160, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 0
@@ -12022,7 +12052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: 0, y: -20, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 0
@@ -12097,7 +12127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: -90, y: 180, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 1
@@ -12674,7 +12704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: 0, y: -20, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 0
@@ -12833,7 +12863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: -90, y: 180, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 1
@@ -13137,7 +13167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 15
   _rotationWhenHit: {x: 0, y: 0, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 0
@@ -13287,7 +13317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: -90, y: 180, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 1
@@ -13480,7 +13510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsGetOnHit: 5
+  _pointsGetOnHit: 11
   _rotationWhenHit: {x: 0, y: 160, z: 0}
   _rotateOnHit: 1
   _rotateShortWay: 0

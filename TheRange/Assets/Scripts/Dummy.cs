@@ -7,6 +7,7 @@ public class Dummy : MonoBehaviour
 {
     [SerializeField] DummyBodyPart[] allParts;
     [Space]
+    [SerializeField] private float _multiplierForPoints;
     [SerializeField] private TMP_Text _damageText;
     [SerializeField] private float _timeToReset = 3f;
 
@@ -57,5 +58,8 @@ public class Dummy : MonoBehaviour
 
         //set damage text
         _damageText.text = $"{_totalDamageDone} ({_lastDamageDone})";
+
+        //add points to game manager, points based on damage
+        GameManager.Instance.AddPoints(Mathf.RoundToInt(_lastDamageDone * _multiplierForPoints));
     }
 }

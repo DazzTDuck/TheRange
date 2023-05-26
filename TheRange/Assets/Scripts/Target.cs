@@ -37,8 +37,11 @@ public class Target : MonoBehaviour, IHittable
         if (!_canBeHit)
             return;
 
-        //Add point
+        //rotate object
         SwitchRotation();
+
+        //register points
+        GameManager.Instance.AddPoints(_pointsGetOnHit);
 
         //start timer if 
         if (_resetRotationAfterTime)

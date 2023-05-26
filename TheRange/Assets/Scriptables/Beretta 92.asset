@@ -23,7 +23,7 @@ MonoBehaviour:
   switchRecoverDelay: 1.5
   timeToResetAccuracy: 0.8
   firstAccurateShots: 1
-  spreadAmount: 8
+  spreadAmount: 11
   recoilAmountXMin: 2.5
   recoilAmountXMax: 2.8
   recoilAmountYMin: -1.3
