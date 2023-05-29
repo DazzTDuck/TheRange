@@ -73,7 +73,7 @@ public class PlayerCamera : MonoBehaviour
     private void HandleCameraBobbing()
     {
         //get the absolute velocity from the x and z axis
-        var absoluteVelocity = Mathf.Abs(_playerMovement.GetRigidbody().velocity.x + _playerMovement.GetRigidbody().velocity.z) / 2;
+        var absoluteVelocity = Mathf.Abs(_playerMovement.GetRigidbody().velocity.x) + Mathf.Abs(_playerMovement.GetRigidbody().velocity.z) / 2;
 
         if (absoluteVelocity < 0.001) //to make sure there are no VERY low numbers
             absoluteVelocity = 0;

@@ -140,9 +140,9 @@ public class PlayerMovementPhysics : MonoBehaviour
         Vector3 finalForce = _curWorldInput * velAccelerationMult + -velocityHorizontal * overSpeedMult * decelerationAmount;    
 
         //https://twitter.com/freyaholmer/status/1203059678705602562
-        Vector3 inputCrossVelocity = Vector3.Cross(_curWorldInput, velocityHorizontal.normalized);
+        Vector3 inputCrossVelocity = Vector3.Cross(_curWorldInput.normalized, velocityHorizontal.normalized);
         //flipping the product so its aligns with left and right
-        inputCrossVelocity = Quaternion.AngleAxis(90, _curWorldInput) * inputCrossVelocity;
+        inputCrossVelocity = Quaternion.AngleAxis(90, _curWorldInput.normalized) * inputCrossVelocity;
 
         finalForce += 0.5f * _moveAcceleration * inputCrossVelocity;
 

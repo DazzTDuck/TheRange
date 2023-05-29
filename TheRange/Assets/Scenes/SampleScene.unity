@@ -880,7 +880,7 @@ MonoBehaviour:
   _sensitivity: 1
   _maxRotX: 45
   _minRotX: -55
-  _bobbingAmplitude: 0.005
+  _bobbingAmplitude: 0.004
   _bobbingPeriod: 0.07
   _player: {fileID: 5867389306800665674}
   _playerMovement: {fileID: 6496151986402438897}
@@ -1770,7 +1770,7 @@ MonoBehaviour:
   _swayAmount: {x: -0.1, y: -0.2, z: 0}
   _lerpSpeedPosition: 75
   _lerpSpeedRotation: 20
-  _swayAmplitude: 0.01
+  _swayAmplitude: 0.005
   _swayPeriod: 0.08
 --- !u!64 &617622026
 MeshCollider:
