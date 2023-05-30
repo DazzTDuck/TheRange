@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     #region variables
 
     private float _timer;
-    private Action _timerCallback
+    private Action _timerCallback;
 
     #endregion
 
