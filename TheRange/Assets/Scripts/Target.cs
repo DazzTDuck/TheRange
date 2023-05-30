@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Target : MonoBehaviour, IHittable
 {
+    #region variables
+
     [SerializeField] private int _pointsGetOnHit;
     [SerializeField] private Vector3 _rotationWhenHit;
     [Space]
@@ -16,8 +18,10 @@ public class Target : MonoBehaviour, IHittable
     private Quaternion _currentRotation;
     private Quaternion _nextRotation;
     private bool _rotate = false;
-
     private bool _canBeHit = true;
+
+    #endregion
+
     private void Start()
     {
         _currentRotation = transform.localRotation;

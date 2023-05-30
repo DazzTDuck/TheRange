@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class DummyBodyPart : MonoBehaviour, IHittable
 {
-    [SerializeField] private float _damageMultiplier;
+    #region variables
 
+    [SerializeField] private float _damageMultiplier;
     private Dummy _dummy;
+
+    #endregion
 
     public void SetDummy(Dummy dummy)
     {

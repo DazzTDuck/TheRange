@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Dummy : MonoBehaviour
 {
+    #region variables
+
     [SerializeField] DummyBodyPart[] allParts;
     [Space]
     [SerializeField] private float _multiplierForPoints;
@@ -15,6 +17,8 @@ public class Dummy : MonoBehaviour
     private int _lastDamageDone;
     private float _timer;
     private bool hasBeenShot = false;
+
+    #endregion
 
     private void Start()
     {

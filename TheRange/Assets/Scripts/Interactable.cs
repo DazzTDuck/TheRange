@@ -5,12 +5,16 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour, IInteractable
 {
+    #region variables
+
     [SerializeField] public bool HasBeenInteracted { get; private set; }
     [Space]
     [SerializeField] private float _timeToResetInteractable = 2f;
     [SerializeField] private UnityEvent OnHoverEnterEvent;
     [SerializeField] private UnityEvent OnHoverExitEvent;
     [SerializeField] private UnityEvent OnInteractEvent;
+
+    #endregion
 
     public void OnHoverEnter()
     {

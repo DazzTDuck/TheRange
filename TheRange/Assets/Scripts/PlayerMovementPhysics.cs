@@ -6,7 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof (Rigidbody))]
 public class PlayerMovementPhysics : MonoBehaviour
 {
-    #region Variables
+    #region variables
+
     [Header("--Movement--")]
     [Tooltip("Changes the movespeed of the character")]
     [SerializeField] private float _runningMoveSpeed = 7;
@@ -58,6 +59,7 @@ public class PlayerMovementPhysics : MonoBehaviour
     private float _moveSpeed;
     private float _horizontalMultiplier;
     private float _verticalMultiplier;
+
     #endregion
 
     private void Update()

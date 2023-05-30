@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class InteractHandler : MonoBehaviour
 {
+    #region variables
+
     [SerializeField] private Transform _camera;
     [SerializeField] private float _maxInteractDistance;
 
     RaycastHit _hit;
     IInteractable _lastInteractable;
+
+    #endregion
 
     private void Update()
     {

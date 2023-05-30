@@ -6,12 +6,16 @@ using UnityEngine;
 
 public class BulletHitSound : MonoBehaviour
 {
+    #region variables
+
     [SerializeField] private AudioSource _source;
     [Space]
     [SerializeField] private AudioHitSound _hitDefault;
     [SerializeField] private AudioHitSound _hitMetal;
     [SerializeField] private AudioHitSound _hitFlesh;
-    
+
+    #endregion
+
     private void Awake()
     {
         var hits = Physics.SphereCastAll(transform.position, 0.01f, transform.forward);

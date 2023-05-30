@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CameraRecoil : MonoBehaviour
 {
+    #region variables
+
     [SerializeField] private PlayerCamera _camera;
     [SerializeField] private AmmoHandler _ammoHandler;
     [SerializeField] private PlayerMovementPhysics _player;
@@ -12,6 +14,8 @@ public class CameraRecoil : MonoBehaviour
 
     private float _recoilMultipier;
     private Vector3 _recoilAmount;
+
+    #endregion
 
     private void Start()
     {

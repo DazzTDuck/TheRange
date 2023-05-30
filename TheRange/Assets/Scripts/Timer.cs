@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    private Action _timerCallback;
+    #region variables
+
     private float _timer;
+    private Action _timerCallback
+
+    #endregion
 
     public void StartTimer(float timerLength, Action timerCallback)
     {

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GunVisuals : MonoBehaviour
 {
+    #region variables
+
     [SerializeField] private Animator _animator;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private ParticleSystem _muzzleFlash;
@@ -15,7 +17,9 @@ public class GunVisuals : MonoBehaviour
 
     private bool _indicateSpread = true;
     private Vector3[] _originalPositionsSpreads = new Vector3[4];
-    
+
+    #endregion
+
     private void Start()
     {
         //subscribe to all gun events

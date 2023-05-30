@@ -8,6 +8,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class ArmsFollowCamera : MonoBehaviour
 {
+    #region variables
+
     [SerializeField] private PlayerMovementPhysics _playerMovement;
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private float _lerpSpeedPosition;
@@ -25,6 +27,8 @@ public class ArmsFollowCamera : MonoBehaviour
     private Vector3 _positionOffset;
     private Vector3 _sway;
     private float _timer;
+
+    #endregion
 
     private void Start()
     {

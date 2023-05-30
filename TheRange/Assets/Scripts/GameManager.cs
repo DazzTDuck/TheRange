@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region variables
+
     [Header("Game Settings")]
     [SerializeField] private float gameTimeInSeconds;
     [Header("Sounds")]
@@ -22,7 +24,9 @@ public class GameManager : MonoBehaviour
     private const string HIGHSCORE_STRING = "Highscore";
     private int _points;
     private float _timer;
-    private bool _gameStarted = false;  
+    private bool _gameStarted = false;
+
+    #endregion
 
     private void Start()
     {

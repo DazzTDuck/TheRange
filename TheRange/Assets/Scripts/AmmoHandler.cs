@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class AmmoHandler : MonoBehaviour
 {
+    #region variables
+
     [SerializeField] private TMP_Text _ammoInClipText; 
     [SerializeField] private TMP_Text _ammoInInventoryText;
     [Space]
     [SerializeField] private Ammo[] _allAmmoTypes;
+
+    #endregion
 
     public Ammo GetAmmo(AmmoTypes ammoType)
     {

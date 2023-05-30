@@ -7,6 +7,8 @@ public class GunHandler : MonoBehaviour
 {
     public static GunHandler Instance { get; private set; }
 
+    #region variables
+
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private Transform _shootingPoint;
     [SerializeField] private AmmoHandler _ammoHandler;
@@ -40,6 +42,8 @@ public class GunHandler : MonoBehaviour
 
     private Ray ray;
     private RaycastHit hit;
+
+    #endregion
 
     private void Awake()
     {

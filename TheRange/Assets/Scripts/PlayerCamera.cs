@@ -2,6 +2,8 @@
 
 public class PlayerCamera : MonoBehaviour
 {
+    #region variables
+
     [Header("--Settings--")]
     [SerializeField] private float _cameraDistanceFromCenter = 1f;
     [Tooltip("Sensitivity of the camera movement")]
@@ -27,6 +29,8 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 _velocity;
     private float _timer;
     private float _recoilMultiplier;
+
+    #endregion
 
     private void Awake()
     {
