@@ -67,7 +67,7 @@ public class GunVisuals : MonoBehaviour
         //play sound
         _audioSource.PlayOneShot(GunHandler.Instance.GetEquipedGun().data.gunFire);
 
-        var frameToPlay = e.isLastBullet ? 83.0f : 1.0f; //different animation based on last bullet
+        float frameToPlay = e.isLastBullet ? 83.0f : 1.0f; //different animation based on last bullet
 
         _animator.speed = 1.0f; //to reset speed
         PlayAnimatorOnFrame(frameToPlay); //fire animation
@@ -99,12 +99,19 @@ public class GunVisuals : MonoBehaviour
         PlayAnimatorOnFrame(frameToPlay); //switch animation
     }
 
+    /// <summary>
+    /// Stops the animation from progressing
+    /// </summary>
     public void StopAnimating()
     {
         _muzzleFlash.Stop();
         _animator.speed = 0.0f;
     }
 
+    /// <summary>
+    /// starts an animation in animator from a cerntain frame
+    /// </summary>
+    /// <param name="frameNumber">frame to start the animation on</param>
     public void PlayAnimatorOnFrame(float frameNumber)
     {
         _animator.Play("Gun", 0, (1 / 264.0f) * frameNumber); //(1/total_frames)*frame_number

@@ -9,7 +9,7 @@ public class Dummy : MonoBehaviour
 
     [SerializeField] DummyBodyPart[] allParts;
     [Space]
-    [SerializeField] private float _multiplierForPoints;
+    [SerializeField] private float _damageToPointsMultiplier;
     [SerializeField] private TMP_Text _damageText;
     [SerializeField] private float _timeToReset = 3f;
 
@@ -31,11 +31,13 @@ public class Dummy : MonoBehaviour
 
     private void Update()
     {
+        //count down time if timer has value
         if(_timer > 0) 
         {
             _timer -= Time.deltaTime;
         }
 
+        //if timer ran out reset damage display
         if(_timer < 0 && hasBeenShot)
         {
             //reset everything
@@ -52,6 +54,10 @@ public class Dummy : MonoBehaviour
         _damageText.enabled = hasBeenShot;
     }
 
+    /// <summary>
+    /// This handles the damage done to the dummy and displays it
+    /// </summary>
+    /// <param name="addDamage">damage done to the dummy</param>
     public void DoDamage(int addDamage)
     {
         _lastDamageDone = addDamage;
@@ -64,6 +70,6 @@ public class Dummy : MonoBehaviour
         _damageText.text = $"{_totalDamageDone} ({_lastDamageDone})";
 
         //add points to game manager, points based on damage
-        GameManager.Instance.AddPoints(Mathf.RoundToInt(_lastDamageDone * _multiplierForPoints));
+        GameManager.Instance.AddPoints(Mathf.RoundToInt(_lastDamageDone * _damageToPointsMultiplier));
     }
 }

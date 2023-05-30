@@ -18,10 +18,12 @@ public class BulletHitSound : MonoBehaviour
 
     private void Awake()
     {
+        //looks for object around object
         var hits = Physics.SphereCastAll(transform.position, 0.01f, transform.forward);
 
         foreach (var hit in hits)
         {
+            //tries to find sound type script to identify which sounds to use
             if(hit.collider.TryGetComponent(out SoundType soundType))
             {
                 switch (soundType.sound)

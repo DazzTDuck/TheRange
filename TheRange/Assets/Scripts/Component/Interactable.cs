@@ -16,6 +16,8 @@ public class Interactable : MonoBehaviour, IInteractable
 
     #endregion
 
+    //this class holds unity events which you can confiure in the inspector to create simple interactable objects
+
     public void OnHoverEnter()
     {
         if(!HasBeenInteracted)
@@ -35,8 +37,8 @@ public class Interactable : MonoBehaviour, IInteractable
             OnInteractEvent?.Invoke();
             OnHoverExit();
 
-
             HasBeenInteracted = true;
+
             //start timer, end of timer reset the interactable
             var resetTimer = gameObject.AddComponent<Timer>();
             resetTimer.StartTimer(_timeToResetInteractable, () => { HasBeenInteracted = false; Destroy(resetTimer); });
