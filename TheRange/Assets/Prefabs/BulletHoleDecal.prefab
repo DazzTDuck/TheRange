@@ -69,10 +69,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2994552964201243035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535fffd7ce8b1bc41b4731888299ed50, type: 3}
+  m_Script: {fileID: 11500000, guid: fe056203cb95a5145a1e0d18bbb4b9a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToDestroy: 8
+  _timeToDestroy: 6
 --- !u!82 &4709174547642928393
 AudioSource:
   m_ObjectHideFlags: 0
@@ -178,19 +178,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2994552964201243035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f8f0f2c141e09469f22a0747112b84, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cff39d00df7a6741aa94ab9f10c9459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _source: {fileID: 4709174547642928393}
   _hitDefault:
     hitSound: {fileID: 8300000, guid: b16c9927aef786343a46a88d923572bf, type: 3}
-    volume: 0.25
+    volume: 0.2
   _hitMetal:
     hitSound: {fileID: 8300000, guid: 82b1844c855d95648bb755e51cb6a7ac, type: 3}
-    volume: 0.65
+    volume: 0.5
   _hitFlesh:
     hitSound: {fileID: 8300000, guid: 35a80628b44b4f34bae492f7d0ce4d28, type: 3}
-    volume: 0.5
+    volume: 0.25
 --- !u!1 &3078484777454705473
 GameObject:
   m_ObjectHideFlags: 0

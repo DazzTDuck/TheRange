@@ -35,7 +35,7 @@ public class PlayerCamera : MonoBehaviour
     private void Awake()
     {
         HideCursor();
-        _startLocalPositionCam = transform.localPosition;
+        _startLocalPositionCam = transform.localPosition - _player.position;
     }
 
     private void LateUpdate()

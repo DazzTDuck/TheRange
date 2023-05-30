@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2641500387828997207
+--- !u!1 &935112452943783845
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8160438692943748775}
-  - component: {fileID: 2359197749590691859}
-  - component: {fileID: 832718032130094656}
-  - component: {fileID: 1781619649647598415}
+  - component: {fileID: 3343245796995418606}
+  - component: {fileID: 6929036702103000986}
+  - component: {fileID: 4598080631753773181}
+  - component: {fileID: 7276825037191679921}
   m_Layer: 0
   m_Name: HostageSteel
   m_TagString: Untagged
@@ -19,36 +19,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8160438692943748775
+--- !u!4 &3343245796995418606
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2641500387828997207}
+  m_GameObject: {fileID: 935112452943783845}
   m_LocalRotation: {x: -6.123235e-17, y: 1, z: 6.123235e-17, w: 0.00000019470718}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4989239271558445658}
+  m_Father: {fileID: 6971610304905622520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2359197749590691859
+--- !u!33 &6929036702103000986
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2641500387828997207}
+  m_GameObject: {fileID: 935112452943783845}
   m_Mesh: {fileID: -6075501584746954553, guid: 92ccd6ff46ca20641a944dd9f14fa4de, type: 3}
---- !u!23 &832718032130094656
+--- !u!23 &4598080631753773181
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2641500387828997207}
+  m_GameObject: {fileID: 935112452943783845}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,13 +84,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1781619649647598415
+--- !u!64 &7276825037191679921
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2641500387828997207}
+  m_GameObject: {fileID: 935112452943783845}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -106,7 +106,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6075501584746954553, guid: 92ccd6ff46ca20641a944dd9f14fa4de, type: 3}
---- !u!1 &5839006302330187986
+--- !u!1 &2201524062037319197
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4989239271558445658}
+  - component: {fileID: 6971610304905622520}
   m_Layer: 0
   m_Name: HostageSteel
   m_TagString: Untagged
@@ -122,24 +122,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4989239271558445658
+--- !u!4 &6971610304905622520
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839006302330187986}
+  m_GameObject: {fileID: 2201524062037319197}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.4, y: 0, z: 10.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8160438692943748775}
-  - {fileID: 3813733895418904338}
+  - {fileID: 3343245796995418606}
+  - {fileID: 8451178289588799321}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6103697672609171140
+--- !u!1 &2802158411076495724
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,12 +147,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3813733895418904338}
-  - component: {fileID: 7419275759899019938}
-  - component: {fileID: 1454616876389921390}
-  - component: {fileID: 4876717739596465857}
-  - component: {fileID: 6011487241748042813}
-  - component: {fileID: 2554629914415597601}
+  - component: {fileID: 8451178289588799321}
+  - component: {fileID: 5700288685592494481}
+  - component: {fileID: 3742245997149023708}
+  - component: {fileID: 5397590587660343893}
+  - component: {fileID: 6800632401518621584}
+  - component: {fileID: 7661827839521282697}
   m_Layer: 0
   m_Name: HostageSteel_Target
   m_TagString: Untagged
@@ -160,36 +160,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3813733895418904338
+--- !u!4 &8451178289588799321
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6103697672609171140}
-  m_LocalRotation: {x: -6.123235e-17, y: 1, z: 6.123235e-17, w: 0.00000019470718}
+  m_GameObject: {fileID: 2802158411076495724}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 1.4021035, z: 0.007461548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4989239271558445658}
+  m_Father: {fileID: 6971610304905622520}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7419275759899019938
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!33 &5700288685592494481
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6103697672609171140}
+  m_GameObject: {fileID: 2802158411076495724}
   m_Mesh: {fileID: -4683349199153069014, guid: 92ccd6ff46ca20641a944dd9f14fa4de, type: 3}
---- !u!23 &1454616876389921390
+--- !u!23 &3742245997149023708
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6103697672609171140}
+  m_GameObject: {fileID: 2802158411076495724}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -225,13 +225,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4876717739596465857
+--- !u!64 &5397590587660343893
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6103697672609171140}
+  m_GameObject: {fileID: 2802158411076495724}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -247,16 +247,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4683349199153069014, guid: 92ccd6ff46ca20641a944dd9f14fa4de, type: 3}
---- !u!114 &6011487241748042813
+--- !u!114 &6800632401518621584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6103697672609171140}
+  m_GameObject: {fileID: 2802158411076495724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28e6b2179e07a704c84c741397cc18b9, type: 3}
+  m_Script: {fileID: 11500000, guid: c2e4eaac43433534eadfd8124a3c64e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _pointsGetOnHit: 15
@@ -266,16 +266,16 @@ MonoBehaviour:
   _rotateLerpSpeed: 8
   _resetRotationAfterTime: 0
   _resetRotationTime: 4
---- !u!114 &2554629914415597601
+--- !u!114 &7661827839521282697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6103697672609171140}
+  m_GameObject: {fileID: 2802158411076495724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 834fca142ed3d3b4db7530302520fd99, type: 3}
+  m_Script: {fileID: 11500000, guid: 2412c054e8b0cfb4f9f8f0154dc4e568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sound: 0
