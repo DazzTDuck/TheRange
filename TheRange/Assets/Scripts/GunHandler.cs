@@ -82,15 +82,16 @@ public class GunHandler : MonoBehaviour
         //get fire input
         _wantsToFire = GetEquipedGun().data.automatic ? Input.GetButton("Fire1") : Input.GetButtonDown("Fire1");
 
-        //if wants to fire but ammo in clip in 0, force a reload
-        if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping && GetEquipedGun().ammoInClip == 0)
+        //weapon fire conditions
+        if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping)
         {
-            ReloadWeapon(true);
-            return;
-        }
+            //if wants to fire but ammo in clip in 0, force a reload
+            if(GetEquipedGun().ammoInClip <= 0)
+            {
+                ReloadWeapon(true);
+                return;
+            }
 
-        if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping && GetEquipedGun().ammoInClip > 0)
-        {
             //calculate spread of shooting
             float randomSpreadX = UnityEngine.Random.Range(-_spreadAmount, _spreadAmount);
             float randomSpreadY = UnityEngine.Random.Range(-_spreadAmount, _spreadAmount);
