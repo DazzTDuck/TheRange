@@ -85,7 +85,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -182,8 +182,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _source: {fileID: 4709174547642928393}
-  _defualtHit: {fileID: 8300000, guid: b16c9927aef786343a46a88d923572bf, type: 3}
-  _metalHit: {fileID: 8300000, guid: 82b1844c855d95648bb755e51cb6a7ac, type: 3}
+  _hitDefault:
+    hitSound: {fileID: 8300000, guid: b16c9927aef786343a46a88d923572bf, type: 3}
+    volume: 0.25
+  _hitMetal:
+    hitSound: {fileID: 8300000, guid: 82b1844c855d95648bb755e51cb6a7ac, type: 3}
+    volume: 0.65
+  _hitFlesh:
+    hitSound: {fileID: 8300000, guid: 35a80628b44b4f34bae492f7d0ce4d28, type: 3}
+    volume: 0.5
 --- !u!1 &3078484777454705473
 GameObject:
   m_ObjectHideFlags: 0

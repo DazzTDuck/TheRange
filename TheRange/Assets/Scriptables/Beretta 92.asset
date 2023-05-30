@@ -23,13 +23,13 @@ MonoBehaviour:
   switchRecoverDelay: 1.5
   timeToResetAccuracy: 0.8
   firstAccurateShots: 1
-  spreadAmount: 11
-  recoilAmountXMin: 2.5
-  recoilAmountXMax: 2.8
-  recoilAmountYMin: -1.3
-  recoilAmountYMax: 1.3
-  recoilAmountZMin: -1.3
-  recoilAmountZMax: 1.3
+  spreadAmount: 14
+  recoilAmountXMin: 0.85
+  recoilAmountXMax: 1.1
+  recoilAmountYMin: -1.2
+  recoilAmountYMax: 1.2
+  recoilAmountZMin: -1.2
+  recoilAmountZMax: 1.2
   gunFire: {fileID: 8300000, guid: e88a0976c52f93047b3c9ade4028bc15, type: 3}
   gunReload: {fileID: 8300000, guid: b4574efd340290641b5cf03f00553578, type: 3}
   gunSwitch: {fileID: 8300000, guid: eb8df47f2a5ae0e4db96663f074acd8c, type: 3}

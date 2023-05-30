@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game Settings")]
     [SerializeField] private float gameTimeInSeconds;
+    [Header("Sounds")]
+    [SerializeField] private AudioSource _laptopSource;
+    [SerializeField] private AudioClip _timerBeginClip;
+    [SerializeField] private AudioClip _timerEndClip;
     [Header("Texts")]
     [SerializeField] private TMP_Text _pointsText;
     [SerializeField] private TMP_Text _highscoreText;
@@ -45,6 +49,7 @@ public class GameManager : MonoBehaviour
                 _gameStarted = false;
                 _timer = 0;
                 _timerText.text = UpdateTimerText(gameTimeInSeconds);
+                _laptopSource.PlayOneShot(_timerEndClip);
 
                 if (_points > PlayerPrefs.GetInt(HIGHSCORE_STRING, 0))
                 {
@@ -70,9 +75,21 @@ public class GameManager : MonoBehaviour
         if (_gameStarted)
             return;
 
+        StartCoroutine(StartSequence());        
+    }
+
+    public IEnumerator StartSequence()
+    {
+        _laptopSource.PlayOneShot(_timerBeginClip);
+
+        //wait for sounds the end
+        yield return new WaitForSeconds(2.8f);
+
+        //then start game
         _gameStarted = true;
         _timer = gameTimeInSeconds;
         _points = 0;
+        AddPoints(0); //to reset points text
     }
 
     public void AddPoints(int toAdd)

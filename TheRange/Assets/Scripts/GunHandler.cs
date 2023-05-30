@@ -16,6 +16,7 @@ public class GunHandler : MonoBehaviour
     [SerializeField] private GunInfoHolder[] _allGuns;
     [SerializeField] private float _SpreadResetSpeed = 2;
     [SerializeField] private float _SpreadWalkingMultiplier = 3;
+    [SerializeField] private float _SpreadCrouchMultiplier = 0.65f;
 
     private bool _isReloading = false;
     private bool _isFireing = false;
@@ -23,6 +24,7 @@ public class GunHandler : MonoBehaviour
     private bool _wantsToFire = false;
     private bool _wantsToReload = false;
     private float _spreadAmount;
+    private float _spreadMultiplier;
     private int _shotsFiredInARow;
     private float _shotTimer;
     private int _equipedIndex = 0;
@@ -30,7 +32,6 @@ public class GunHandler : MonoBehaviour
     public EventHandler<GunEventArgs> FireWeaponEvent;
     public EventHandler<GunEventArgs> ReloadWeaponEvent;
     public EventHandler<GunEventArgs> SwitchWeaponEvent;
-
     public class GunEventArgs : EventArgs
     {
         public bool isLastBullet = false;
@@ -91,11 +92,22 @@ public class GunHandler : MonoBehaviour
         if (_wantsToFire && !_isFireing && !_isReloading && !_isEquiping && GetEquipedGun().ammoInClip > 0)
         {
             //calculate spread of shooting
-            var randomSpreadX = UnityEngine.Random.Range(-_spreadAmount, _spreadAmount);
-            var randomSpreadY = UnityEngine.Random.Range(-_spreadAmount, _spreadAmount);
-            var spreadMultiplier = _player.GetRigidbody().velocity.magnitude > 0.2 ? _SpreadWalkingMultiplier : 1;
-
-            var newMousePosition = new Vector3(Input.mousePosition.x + (randomSpreadX * spreadMultiplier), Input.mousePosition.y + (randomSpreadY * spreadMultiplier), 0);
+            float randomSpreadX = UnityEngine.Random.Range(-_spreadAmount, _spreadAmount);
+            float randomSpreadY = UnityEngine.Random.Range(-_spreadAmount, _spreadAmount);
+            
+            //spread multiplier for crouching and walking
+            if(_player.GetRigidbody().velocity.magnitude > 0.5f)
+            {
+                //if walking, 
+                _spreadMultiplier = _SpreadWalkingMultiplier;
+            }
+            else
+            {
+                // if not walking and/or crouching
+                _spreadMultiplier = _player .IsCrouching ? _SpreadCrouchMultiplier : 1;
+            }
+               
+            var newMousePosition = new Vector3(Input.mousePosition.x + (randomSpreadX * _spreadMultiplier), Input.mousePosition.y + (randomSpreadY * _spreadMultiplier), 0);
             ray = Camera.main.ScreenPointToRay(newMousePosition); //set ray point (center of screen (+spread) because mouse is locked)
 
             //set variables
@@ -251,6 +263,11 @@ public class GunHandler : MonoBehaviour
             //set ammo in clip for each gun so all have ammo from start
             _allGuns[i].ammoInClip = _allGuns[i].data.magazineCapacity;
         }
+    }
+
+    public float GetSpreadAmount()
+    {
+        return _spreadAmount * _spreadMultiplier;
     }
 
     public ref GunInfoHolder GetEquipedGun()

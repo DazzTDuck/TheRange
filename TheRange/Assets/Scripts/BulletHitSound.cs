@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -7,8 +8,9 @@ public class BulletHitSound : MonoBehaviour
 {
     [SerializeField] private AudioSource _source;
     [Space]
-    [SerializeField] private AudioClip _defualtHit;
-    [SerializeField] private AudioClip _metalHit;
+    [SerializeField] private AudioHitSound _hitDefault;
+    [SerializeField] private AudioHitSound _hitMetal;
+    [SerializeField] private AudioHitSound _hitFlesh;
     
     private void Awake()
     {
@@ -21,13 +23,10 @@ public class BulletHitSound : MonoBehaviour
                 switch (soundType.sound)
                 {
                     case SoundMaterial.Metal:
-                        _source.PlayOneShot(_metalHit);
+                        _source.PlayOneShot(_hitMetal.hitSound, _hitMetal.volume);
                         break;
                     case SoundMaterial.Person:
-                        //_source.PlayOneShot(_metalHit);
-                        break;
-                    case SoundMaterial.Dirt:
-                        //_source.PlayOneShot(_metalHit);
+                        _source.PlayOneShot(_hitFlesh.hitSound, _hitFlesh.volume);
                         break;
                 }
                 return;
@@ -35,6 +34,13 @@ public class BulletHitSound : MonoBehaviour
         }
 
         //if not found, play the default sound
-        _source.PlayOneShot(_defualtHit);
+        _source.PlayOneShot(_hitDefault.hitSound, _hitDefault.volume);
     }
+}
+
+[Serializable]
+public struct AudioHitSound
+{
+    public AudioClip hitSound;
+    public float volume;
 }

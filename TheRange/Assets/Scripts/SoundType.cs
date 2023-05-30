@@ -10,6 +10,5 @@ public class SoundType : MonoBehaviour
 public enum SoundMaterial
 {
     Metal,
-    Person,
-    Dirt
+    Person
 }
