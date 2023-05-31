@@ -12,7 +12,6 @@ public class ArmsFollowCamera : MonoBehaviour
 
     [SerializeField] private PlayerMovementPhysics _playerMovement;
     [SerializeField] private Transform _cameraTransform;
-    [SerializeField] private float _lerpSpeedPosition;
     [SerializeField] private float _lerpSpeedRotation;
     [SerializeField] private float _swayChangeLerpSpeed;
     [Space]
