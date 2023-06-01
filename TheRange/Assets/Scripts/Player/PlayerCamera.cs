@@ -66,7 +66,7 @@ public class PlayerCamera : MonoBehaviour
 
         //setting camera to correct position relavtive to player and adding the bobbing value
         //transform.position = _cameraTarget + _bobbingAmount;
-        transform.position = Vector3.Lerp(transform.position, _cameraTarget + _bobbingAmount, 100 * Time.deltaTime); //lerp to rid stuttering, need to be fast so you don't notice it
+        transform.position = Vector3.Lerp(transform.position, _cameraTarget + _bobbingAmount, 75 * Time.deltaTime); //lerp to rid stuttering, need to be fast so you don't notice it
     }
 
     private void Update()
