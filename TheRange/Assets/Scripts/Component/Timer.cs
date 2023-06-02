@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
 
     private float _timer;
     private Action _timerCallback;
+    private bool _timerCancelled = false;
 
     #endregion
 
@@ -16,6 +17,7 @@ public class Timer : MonoBehaviour
     {
         _timer = timerLength;
         _timerCallback = timerCallback;
+        _timerCancelled = false;
     }
 
     private void Update()
@@ -23,7 +25,7 @@ public class Timer : MonoBehaviour
         if(_timer > 0)
             _timer -= Time.deltaTime;
 
-        if (IsTimerComplete())
+        if (IsTimerComplete() && !_timerCancelled)
         {
             _timerCallback();
         }         
@@ -32,5 +34,13 @@ public class Timer : MonoBehaviour
     public bool IsTimerComplete()
     {
         return _timer <= 0;
+    }
+
+    public void CancelTimer()
+    {
+        _timerCancelled = true;
+        _timer = 0;
+
+        Destroy(this);
     }
 }

@@ -26,7 +26,6 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 _startLocalPositionCam;
     private Vector3 _cameraTarget;
     private Vector3 _bobbingAmount;
-    private Vector3 _velocity;
     private float _timer;
     private float _recoilMultiplier;
 
@@ -53,8 +52,8 @@ public class PlayerCamera : MonoBehaviour
         rotCamX = Mathf.Clamp(rotCamX, _minRotX, _maxRotX);
 
         //calculate rotations
-        var cameraRotation = new Vector3(-rotCamX, _player.eulerAngles.y, 0);
-        var bodyRotation = new Vector3(0, _player.eulerAngles.y + rotCamY, 0);
+        Vector3 cameraRotation = new Vector3(-rotCamX, _player.eulerAngles.y, 0);
+        Vector3 bodyRotation = new Vector3(0, _player.eulerAngles.y + rotCamY, 0);
         transform.eulerAngles = cameraRotation + (_recoilAmount * _recoilMultiplier);
 
         //rotate player body
@@ -77,7 +76,7 @@ public class PlayerCamera : MonoBehaviour
     private void HandleCameraBobbing()
     {
         //get the absolute velocity from the x and z axis
-        var absoluteVelocity = Mathf.Abs(_playerMovement.GetRigidbody().velocity.x) + Mathf.Abs(_playerMovement.GetRigidbody().velocity.z) / 2;
+        float absoluteVelocity = Mathf.Abs(_playerMovement.GetRigidbody().velocity.x) + Mathf.Abs(_playerMovement.GetRigidbody().velocity.z) / 2;
 
         if (absoluteVelocity < 0.001) //to make sure there are no VERY low numbers
             absoluteVelocity = 0;

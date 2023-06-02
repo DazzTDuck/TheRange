@@ -77,6 +77,12 @@ public class GunVisuals : MonoBehaviour
 
     private void PlayReloadAnimation(object sender, GunHandler.GunEventArgs e)
     {
+        if (e.isCanceled)
+        {
+            _audioSource.Stop();
+            return;
+        }
+
         //play sound
         _audioSource.PlayOneShot(GunHandler.Instance.GetEquipedGun().data.gunReload);
 

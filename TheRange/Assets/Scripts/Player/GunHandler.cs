@@ -30,6 +30,7 @@ public class GunHandler : MonoBehaviour
     private int _shotsFiredInARow;
     private float _shotTimer;
     private int _equipedIndex = 0;
+    private Timer _reloadTimer;
 
     public EventHandler<GunEventArgs> FireWeaponEvent;
     public EventHandler<GunEventArgs> ReloadWeaponEvent;
@@ -38,6 +39,7 @@ public class GunHandler : MonoBehaviour
     {
         public bool isLastBullet = false;
         public bool gunIsSwitched = false;
+        public bool isCanceled = false;
     }
 
     private Ray ray;
@@ -170,14 +172,21 @@ public class GunHandler : MonoBehaviour
             GetEquipedGun().ammoInClip < GetEquipedGun().data.magazineCapacity && _ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory > 0)
         {
             _shotsFiredInARow = 0;
-            _isReloading = true;        
+            _isReloading = true;
 
             //start timer, at the end of timer reset everything and update ammo count
-            var reloadTimer = gameObject.AddComponent<Timer>();
-            reloadTimer.StartTimer(GetEquipedGun().data.reloadDelay, () => { AmmoReloadUpdate(); _isReloading = false; Destroy(reloadTimer); });
+            _reloadTimer = gameObject.AddComponent<Timer>();
+            _reloadTimer.StartTimer(GetEquipedGun().data.reloadDelay, () => { AmmoReloadUpdate(); _isReloading = false; Destroy(_reloadTimer); _reloadTimer = null; });
 
             ReloadWeaponEvent?.Invoke(this, new GunEventArgs { isLastBullet = GetEquipedGun().ammoInClip == 0 });
         }
+    }
+
+    private void CancelReload()
+    {
+        ReloadWeaponEvent?.Invoke(this, new GunEventArgs { isCanceled = true });
+        _reloadTimer.CancelTimer();
+        _isReloading = false;
     }
 
     public void AmmoReloadUpdate()
@@ -200,8 +209,12 @@ public class GunHandler : MonoBehaviour
     {
         var mouseWheelInput = Input.GetAxisRaw("Mouse ScrollWheel");
         
-        if(Mathf.Abs(mouseWheelInput) > 0 && !_isEquiping && !_isReloading && !_isFireing)
+        if(Mathf.Abs(mouseWheelInput) > 0 && !_isEquiping && !_isFireing)
         {
+            //cancel reload if reloading
+            if (_isReloading)
+                CancelReload();
+
             //enable bool and up index
             _isEquiping = true;
 

@@ -100,6 +100,8 @@ GameObject:
   - component: {fileID: 249618541843985207}
   - component: {fileID: 6364948015664770642}
   - component: {fileID: 8737121672897654900}
+  - component: {fileID: 1491555654140818392}
+  - component: {fileID: 2027995590030989563}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -122,7 +124,7 @@ Transform:
   - {fileID: 5862193288164392522}
   - {fileID: 6583319330146068296}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1689864510518936972
 Rigidbody:
@@ -199,7 +201,7 @@ MonoBehaviour:
   _shootingPoint: {fileID: 0}
   _ammoHandler: {fileID: 6364948015664770642}
   _player: {fileID: 4120794650032872794}
-  _bulletHoleDecal: {fileID: 2994552964201243035, guid: 0186955986c91f24ca4836711fd4231d,
+  _bulletHoleDecal: {fileID: 1545259010988683536, guid: 0186955986c91f24ca4836711fd4231d,
     type: 3}
   _allGuns:
   - gunObject: {fileID: 0}
@@ -252,3 +254,122 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
   _maxInteractDistance: 1
+--- !u!82 &1491555654140818392
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751173425143799676}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 25
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2027995590030989563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751173425143799676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fff6cad8bd81a4a8cca93e81cbbaa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerMovement: {fileID: 4120794650032872794}
+  _audioSource: {fileID: 1491555654140818392}
+  _footsteps:
+  - {fileID: 8300000, guid: e99bf5889004ed1498030f0ff696c42a, type: 3}
+  - {fileID: 8300000, guid: bd855cc0c54149144befff17d67e6c71, type: 3}
+  - {fileID: 8300000, guid: c6cd3cebff39ffd418ca5a76fb446552, type: 3}
+  - {fileID: 8300000, guid: 7dc34c04860650a45b7a0b78ba380ecd, type: 3}
+  - {fileID: 8300000, guid: eeb30aa8a6e23ce448452d56afe30183, type: 3}
+  - {fileID: 8300000, guid: e8c0a8ec1c9024e439f1988e92fbd4a9, type: 3}
+  _timingAmplitude: 0.02
+  _timingPeriod: 0.075
