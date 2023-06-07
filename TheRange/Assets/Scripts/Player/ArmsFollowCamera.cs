@@ -10,18 +10,21 @@ public class ArmsFollowCamera : MonoBehaviour
 {
     #region variables
 
-    [SerializeField] private PlayerMovementPhysics _playerMovement;
-    [SerializeField] private Transform _cameraTransform;
+    [Header("--Lerp Speeds--")]
     [SerializeField] private float _lerpSpeedRotation;
     [SerializeField] private float _swayChangeLerpSpeed;
-    [Space]
+    [Header("--Gun Sway--")]
     [SerializeField] private Vector3 _swayAmount;
     [SerializeField] private float _swayAmplitude = 1f;
     [SerializeField] private float _swayPeriod = 0.1f;
-    [Space]
+    [Header("--Air Gun Sway--")]
     [SerializeField] private Vector3 _airSwayAmount;
     [SerializeField] private float _airSwayAmplitude = 1f;
     [SerializeField] private float _airSwayPeriod = 0.1f;
+
+    [Header("--References--")]
+    [SerializeField] private PlayerMovementPhysics _playerMovement;
+    [SerializeField] private Transform _cameraTransform;
 
     private Vector3 _positionOffset;
     private Vector3 _sway;

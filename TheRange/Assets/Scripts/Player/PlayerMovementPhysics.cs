@@ -41,7 +41,7 @@ public class PlayerMovementPhysics : MonoBehaviour
     [SerializeField] private float _crouchHeight;
     public bool IsCrouching {  get; private set; }
 
-    [Header("References")]
+    [Header("--References--")]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private CapsuleCollider _playerCollider;
 

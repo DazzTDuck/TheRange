@@ -12,7 +12,12 @@ public class AmmoHandler : MonoBehaviour
     [SerializeField] private Ammo[] _allAmmoTypes;
 
     #endregion
-
+    
+    /// <summary>
+    /// Get the data for the guns ammo type
+    /// </summary>
+    /// <param name="ammoType">ammo type of your current gun</param>
+    /// <returns>Data for requested ammo</returns>
     public Ammo GetAmmo(AmmoTypes ammoType)
     {
         for (int i = 0; i < _allAmmoTypes.Length; i++)
@@ -25,12 +30,18 @@ public class AmmoHandler : MonoBehaviour
         return new Ammo();
     }
 
-    public void EditAmmoText(int currentAmmoInClip, int currentAmmoInInventory)
+    /// <summary>
+    /// Edits the ammo UI
+    /// </summary>
+    public void UpadteAmmoText(int currentAmmoInClip, int currentAmmoInInventory)
     {
         _ammoInClipText.text = currentAmmoInClip.ToString();
         _ammoInInventoryText.text = $"/ {currentAmmoInInventory}";
     }
 
+    /// <summary>
+    /// Give player maximum ammo
+    /// </summary>
     public void MaximizeAmmo()
     {
         for (int i = 0; i < _allAmmoTypes.Length; i++)

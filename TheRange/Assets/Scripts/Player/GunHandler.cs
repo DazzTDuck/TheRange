@@ -9,13 +9,17 @@ public class GunHandler : MonoBehaviour
 
     #region variables
 
+    [Header("--References--")]
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private Transform _shootingPoint;
     [SerializeField] private AmmoHandler _ammoHandler;
     [SerializeField] private PlayerMovementPhysics _player;
     [SerializeField] private GameObject _bulletHoleDecal;
-    [Space]
+
+    [Header("--Gun Inventory--")]
     [SerializeField] private GunInfoHolder[] _allGuns;
+
+    [Header("--Spread Controls--")]
     [SerializeField] private float _SpreadResetSpeed = 2;
     [SerializeField] private float _SpreadWalkingMultiplier = 3;
     [SerializeField] private float _SpreadCrouchMultiplier = 0.65f;
@@ -160,7 +164,7 @@ public class GunHandler : MonoBehaviour
 
     private void ReloadWeapon(bool bypassInput = false, bool lastBullet = false)
     {
-        //for if you want to force a reload by code
+        //for if you want to force a reload
         if (!bypassInput)
             _wantsToReload = Input.GetButtonDown("Reload");
         else
@@ -200,6 +204,7 @@ public class GunHandler : MonoBehaviour
            reloadAmount += difference;
         }
 
+        //updates the values
         GetEquipedGun().ammoInClip += reloadAmount;
         _ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory -= reloadAmount;
         UpdateAmmoVisual();
@@ -248,6 +253,9 @@ public class GunHandler : MonoBehaviour
         equipTimer.StartTimer(GetEquipedGun().data.switchRecoverDelay, () => { _isEquiping = false; Destroy(equipTimer); });
     }
 
+    /// <summary>
+    /// Handles the reset delay of the gun accuracy
+    /// </summary>
     private void ShootingTimer()
     {
         if (_shotTimer > 0)
@@ -259,11 +267,17 @@ public class GunHandler : MonoBehaviour
         }      
     }
 
+    /// <summary>
+    /// Updates the UI ammo counter
+    /// </summary>
     public void UpdateAmmoVisual()
     {
-        _ammoHandler.EditAmmoText(GetEquipedGun().ammoInClip, _ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory);
+        _ammoHandler.UpadteAmmoText(GetEquipedGun().ammoInClip, _ammoHandler.GetAmmo(GetEquipedGun().data.ammoType).ammoInInventory);
     }
 
+    /// <summary>
+    /// Sets the correct gun model active
+    /// </summary>
     private void EnableEquipedGun()
     {
         for (int i = 0; i < _allGuns.Length; i++)
@@ -288,6 +302,10 @@ public class GunHandler : MonoBehaviour
         return _spreadAmount * _spreadMultiplier;
     }
 
+    /// <summary>
+    /// Gets the current equiped gun
+    /// </summary>
+    /// <returns>The current gun information</returns>
     public ref GunInfoHolder GetEquipedGun()
     {
         return ref _allGuns[_equipedIndex];

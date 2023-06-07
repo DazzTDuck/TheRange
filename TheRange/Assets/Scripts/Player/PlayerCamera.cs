@@ -95,6 +95,14 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculates the sine wave used for the bobbing for the camera
+    /// </summary>
+    /// <param name="timer">timer reference</param>
+    /// <param name="period">the length of the sine wave</param>
+    /// <param name="amplitude">the amplitude of the sine wave</param>
+    /// <param name="localPosition">the arms local position</param>
+    /// <param name="absoluteVelocity">absolute value of velocity</param>
     private Vector3 GetBobbing(float timer, float period, float amplitude,Vector3 localPosition, float absoluteVelocity = 1)
     {
         float theta = timer / (period);
