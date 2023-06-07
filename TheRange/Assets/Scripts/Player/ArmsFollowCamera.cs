@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 public class ArmsFollowCamera : MonoBehaviour
 {
@@ -34,19 +30,24 @@ public class ArmsFollowCamera : MonoBehaviour
 
     private void Start()
     {
-        _positionOffset = transform.localPosition - _cameraTransform.localPosition; //calcualte position difference to make an offset
+        //calcualte position difference to make an offset
+        _positionOffset = transform.localPosition - _cameraTransform.localPosition; 
     }
 
     private void LateUpdate()
     {
         var position = _cameraTransform.localPosition + _positionOffset;
 
+        //set position and rotation of arms
         transform.localPosition = position + transform.TransformVector(_sway);
         transform.rotation = Quaternion.Lerp(transform.rotation, _cameraTransform.rotation, Time.deltaTime * _lerpSpeedRotation);
 
         HandleSway();
     }
 
+    /// <summary>
+    /// This functions controls the movement sway of the arm models
+    /// </summary>
     private void HandleSway()
     {
         //get the absolute velocity from the x and z axis
@@ -80,6 +81,15 @@ public class ArmsFollowCamera : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculates the sine wave used for the amount of sway wanted
+    /// </summary>
+    /// <param name="timer">timer reference</param>
+    /// <param name="period">the length of the sine wave</param>
+    /// <param name="amplitude">the amplitude of the sine wave</param>
+    /// <param name="localPosition">the arms local position</param>
+    /// <param name="absoluteVelocity">absolute value of velocity</param>
+    /// <returns></returns>
     private Vector3 GetSway(float timer, float period, float amplitude, Vector3 localPosition, float absoluteVelocity = 1)
     {
         float theta = timer / (period);

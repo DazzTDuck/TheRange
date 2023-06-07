@@ -31,7 +31,7 @@ public class AmmoHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Edits the ammo UI
+    /// Updates the ammo UI by newly given values
     /// </summary>
     public void UpadteAmmoText(int currentAmmoInClip, int currentAmmoInInventory)
     {
